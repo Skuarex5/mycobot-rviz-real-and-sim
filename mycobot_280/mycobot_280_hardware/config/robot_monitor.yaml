@@ -1,0 +1,22 @@
+# Defaults for the read-only monitor. offsets/signs are NOT calibrated yet:
+# compare the physical pose against RViz before trusting them.
+robot_monitor:
+  ros__parameters:
+    port: /dev/ttyACM0
+    baudrate: 115200
+    update_rate_hz: 10.0
+    joint_names:
+      - joint2_to_joint1
+      - joint3_to_joint2
+      - joint4_to_joint3
+      - joint5_to_joint4
+      - joint6_to_joint5
+      - joint6output_to_joint6
+    # position_rad = sign * radians(device_deg) + offset_rad
+    joint_offsets: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    joint_signs: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # URDF limits (rad), used only to warn, never to command.
+    joint_lower_limits: [-2.9321, -2.4434, -2.6179, -2.6179, -2.7052, -3.14159]
+    joint_upper_limits: [2.9321, 2.4434, 2.6179, 2.6179, 2.7925, 3.14159]
+    max_consecutive_failures: 5
+    reconnect_period_s: 2.0

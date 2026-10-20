@@ -1,0 +1,43 @@
+# Conservative parameters for the myCobot 280 M5 FollowJointTrajectory hardware node.
+# SAFETY: allow_motion is false by default. Pass allow_motion:=true at launch
+# only after verifying workspace clearance and E-stop reachability.
+robot_control:
+  ros__parameters:
+    port: /dev/ttyACM0
+    baudrate: 115200
+    update_rate_hz: 10.0
+    allow_motion: false
+    action_name: mycobot280m5_group_controller/follow_joint_trajectory
+    joint_states_topic: joint_states
+    joint_names:
+      - joint2_to_joint1
+      - joint3_to_joint2
+      - joint4_to_joint3
+      - joint5_to_joint4
+      - joint6_to_joint5
+      - joint6output_to_joint6
+    # position_rad = sign * radians(device_deg) + offset_rad
+    joint_offsets: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    joint_signs: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # URDF joint position limits (rad)
+    joint_lower_limits: [-2.9321, -2.4434, -2.6179, -2.6179, -2.7052, -3.14159]
+    joint_upper_limits: [2.9321, 2.4434, 2.6179, 2.6179, 2.7925, 3.14159]
+    # Conservative motion and speed limits
+    max_joint_velocity_rad_s: 1.0
+    default_pymycobot_speed: 15
+    min_pymycobot_speed: 5
+    max_pymycobot_speed: 30
+    start_state_tolerance_rad: 0.15
+    goal_tolerance_rad: 0.08
+    waypoint_tolerance_rad: 0.10
+    goal_time_tolerance_s: 2.0
+    trajectory_timeout_scaling: 2.0
+    min_segment_wait_s: 0.08
+    collinear_tolerance_rad: 0.02
+    min_waypoint_separation_rad: 0.035
+    min_segment_duration_s: 0.20
+    max_state_age_s: 1.5
+    max_consecutive_failures: 15
+    reconnect_period_s: 2.0
+    stop_retries: 3
+
