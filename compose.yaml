@@ -1,8 +1,8 @@
-name: mycobot-rviz-live-sim
+name: mycobot-rviz-real-and-sim
 
 services:
   mycobot:
-    image: mycobot-rviz-live-sim:humble
+    image: mycobot-rviz-real-and-sim:humble
     build:
       context: .
       args:

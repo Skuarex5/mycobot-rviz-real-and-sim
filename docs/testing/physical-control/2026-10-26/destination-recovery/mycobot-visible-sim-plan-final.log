@@ -1,4 +1,0 @@
-std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
-std_srvs.srv.SetBool_Response(success=True, message='Destino: Gazebo')
-PLAN std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id='world') duration builtin_interfaces.msg.Duration(sec=0, nanosec=400018226)
-EXEC moveit_msgs.action.ExecuteTrajectory_Result(error_code=moveit_msgs.msg.MoveItErrorCodes(val=1))

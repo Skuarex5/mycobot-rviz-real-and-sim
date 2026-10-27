@@ -3,12 +3,12 @@
 **/*.pyc
 **/.pytest_cache
 **/.ruff_cache
+**/.mypy_cache
 **/*.egg-info
 **/build
 **/install
 **/log
-.superpowers
 .worktrees
-docs
+assets
 .env
 *.xauth

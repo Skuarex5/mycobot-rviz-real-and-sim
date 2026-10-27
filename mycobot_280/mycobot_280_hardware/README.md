@@ -185,13 +185,11 @@ encoder-based FK instead showed downward endpoint changes. The existing 0.04 rad
 joint tolerance can accept a trajectory without meeting such a small Cartesian
 goal. Do not treat plan approval or the software direction correction as proof
 of accurate physical tracking. The real arm was left stopped with Gazebo selected.
-See [reproduction and measured limitations](../../docs/testing/2026-10-26-plan-cartesian-physical.md).
 The physical follower now stops on measured travel away from the Cartesian goal
 or lack of Cartesian progress. This is a stop guard, not a precision correction.
 Explicitly returning to Gazebo after physical session revocation no longer waits
 for a disconnected USB driver. Simulation uses its normal planning limits;
 physical requests retain the previous conservative limits.
-See [destination recovery tests](../../docs/testing/2026-10-26-destination-recovery.md).
 
 
 ```bash
@@ -236,7 +234,7 @@ docker run -it --name mycobot-hardware --network host \
   -e XAUTHORITY=/tmp/mycobot-Xauthority \
   -v "$XAUTHORITY":/tmp/mycobot-Xauthority:ro \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-  -v /home/skuarex/mycobot_ros2_packages:/root/mycobot_ros2_packages \
+  -v /home/skuarex/mycobot-rviz-real-and-sim:/root/mycobot_ros2_packages \
   -v /home/skuarex/ros2_ws:/root/ros2_ws \
   mycobot-humble:local bash
 ```
@@ -279,9 +277,7 @@ actual measured speed require physical validation.
 
 Live packets additionally carry independent arm/gripper intent flags. Activation
 alone renews communication without position writes. A marker drag enables the
-arm; changing the slider enables the gripper. See the [activation and axis
-validation](../../docs/testing/2026-10-26-explicit-live-intent.md), including the
-RViz shutdown workaround and NVIDIA-enabled container used on this workstation.
+arm; changing the slider enables the gripper.
 
 The coordinator rejects unknown or previous-selection MoveIt plans, including
 when switching away and back to the same destination. It hashes trajectory
@@ -348,10 +344,9 @@ La tolerancia final configurada es 0.04 rad (aproximadamente 2.3°). Esas prueba
 corresponden al seguimiento anterior. Desde el 27/10, el marcador y el deslizador
 usan Plan & Execute automáticamente, con los controladores de trayectoria
 activos tanto en Gazebo como en hardware. Se validó el flujo nuevo en Gazebo;
-queda pendiente repetir la validación física con el USB conectado. Ver
-[pruebas del flujo automático](../../docs/testing/2026-10-27-automatic-plan-execute.md).
+queda pendiente repetir la validación física con el USB conectado.
 
 En este M5, tras una orden de pinza sin ACK, consultar directamente los ángulos
 dejaba de recibir respuesta. El transporte consulta primero una posición válida
 de la pinza, bajo el mismo bloqueo USB, y después lee el brazo. Una escritura
-sola no acredita ejecución ni parada. Ver [resultados y reproducción](../../docs/testing/2026-10-26-physical-control-validation.md).
+sola no acredita ejecución ni parada.
