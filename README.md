@@ -1,230 +1,297 @@
-# mycobot_ros2
+# myCobot RViz — Live & Sim
 
-[![jaywcjlove/sb](https://jaywcjlove.github.io/sb/lang/chinese.svg)](https://docs.elephantrobotics.com/docs/gitbook/12-ApplicationBaseROS/12.2-ROS2/12.2.1-ROS2%E7%9A%84%E5%AE%89%E8%A3%85.html)
-[![jaywcjlove/sb](https://jaywcjlove.github.io/sb/lang/english.svg)](https://docs.elephantrobotics.com/docs/gitbook-en/12-ApplicationBaseROS/12.2-ROS2/12.2.3-ROS2%E4%BB%8B%E7%BB%8D.html)
+Control del myCobot 280 M5 desde RViz: planificación con MoveIt 2, seguimiento
+al arrastrar un marcador, simulación en Gazebo Classic y conexión USB opcional
+al brazo físico y su pinza adaptativa.
 
-[中文文档](https://docs.elephantrobotics.com/docs/gitbook/12-ApplicationBaseROS/12.2-ROS2/12.2.1-ROS2%E7%9A%84%E5%AE%89%E8%A3%85.html) | [English Documentation](https://docs.elephantrobotics.com/docs/gitbook-en/12-ApplicationBaseROS/12.2-ROS2/12.2.3-ROS2%E4%BB%8B%E7%BB%8D.html)
+## Inicio rápido en otra PC
 
-myCobot ROS2 package
+Cada persona instala **Docker Engine y Docker Compose v2** en su equipo.
+La imagen instala ROS 2 Humble, Gazebo, MoveIt y las dependencias del proyecto;
+no hace falta instalar ROS en el host ni copiar el contenedor de otra persona.
 
-**Notes**:
+El flujo gráfico está pensado para **Linux x86_64 con X11 o XWayland** (por
+ejemplo Ubuntu 22.04). Windows/WSL y macOS necesitan otra configuración de
+pantalla y USB, que no se incluye aquí. La primera construcción descarga varios
+GB y compila los paquetes; reservá al menos 10 GB libres para imagen y caché.
 
-* Make sure that `Atom` is flashed into the top Atom and `Transponder` or `minirobot` is flashed into the base Basic .The tool download address: [https://github.com/elephantrobotics/myCobot/tree/main/Software](https://github.com/elephantrobotics/myCobot/tree/main/Software)
-* Supported ROS2 versions:
-  * Ubuntu 20.04 / ROS2 Foxy - branch `foxy`
-  * Ubuntu 20.04 / ROS2 Galactic - branch `galactic`
-  * Ubuntu 22.04 / ROS2 Humble - branch `humble`
-  * Orin Nano Ubunut 20.04 / ROS2 Foxy - branch `foxy`
-  * LimoPro Orin Nano Ubunut 20.04 / ROS2 Foxy - branch `foxy`
-  * PC Virtual Machine Ubunut 20.04 / ROS2 Foxy - branch `foxy`
-
-## Installation
-
-### 1.1 Pre-Requriements
-
-For using this package, the [Python api](https://github.com/elephantrobotics/pymycobot) library should be installed first.
+Instalación oficial: [Docker Engine para Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+y [plugin Docker Compose](https://docs.docker.com/compose/install/linux/).
+Comprobá que ambos estén disponibles y que tu usuario pueda ejecutar Docker:
 
 ```bash
-pip install pymycobot --user
+docker --version
+docker compose version
+docker info
 ```
 
-Many ROS2 scripts also need `packaging` (for `pymycobot` version checks). After cloning, install common Python deps with:
+### 1. Abrir el proyecto y preparar la pantalla
+
+Cloná este repositorio y, desde su carpeta, ejecutá en el **host Linux**:
 
 ```bash
-cd ~/colcon_ws/src/mycobot_ros2
-bash install_deps.sh
+cd mycobot-rviz-live-sim
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+export MYCOBOT_X11_HOSTNAME="${XAUTHLOCALHOSTNAME:-$(hostname)}"
+test -f "$XAUTHORITY" && test -n "$DISPLAY"
 ```
 
-Or:
+La última línea debe terminar correctamente: el archivo contiene la autorización
+para abrir Gazebo y RViz en tu sesión gráfica. En Ubuntu con GDM suele estar en
+`/run/user/<uid>/gdm/Xauthority` y la variable ya viene definida. Si el comando
+falla, apuntá `XAUTHORITY` al archivo real de tu sesión antes de continuar.
+`MYCOBOT_X11_HOSTNAME` conserva el nombre asociado a la autorización X11 dentro
+del contenedor. Exportá ambas variables también en las terminales nuevas desde
+las que ejecutes Compose. No hace falta ejecutar `xhost +`.
+
+### 2. Construir y ejecutar
+
+Desde la raíz del repositorio:
 
 ```bash
-pip3 install --user -r ~/colcon_ws/src/mycobot_ros2/requirements.txt
+docker compose build
+docker compose up
 ```
 
-### 1.2 Package Download and Install
+Se abren **Gazebo y un solo RViz** con brazo y pinza. El destino inicial es
+**Gazebo**. Este comando no abre el puerto USB ni habilita movimiento físico.
+Esperá a que aparezca el modelo y terminen de arrancar los controladores.
 
-Install ros package in your src folder of your Colcon workspace.
+La imagen contiene una copia compilada del código. Después de modificarlo,
+detené el lanzamiento con **Ctrl+C**, volvé a ejecutar `docker compose build`
+y después `docker compose up`. No se usan rutas personales ni se monta el
+workspace de quien creó el proyecto.
+
+Para terminar, detené primero el seguimiento y pulsá **Ctrl+C**. Después:
 
 ```bash
-$ cd ~/colcon_ws/src
-# For the humble branch
-$ git clone -b humble --depth 1 https://github.com/elephantrobotics/mycobot_ros2.git
-# For the foxy branch
-$ git clone -b foxy --depth 1 https://github.com/elephantrobotics/mycobot_ros2.git
-# For the galactic branch
-$ git clone -b galactic --depth 1 https://github.com/elephantrobotics/mycobot_ros2.git
-$ cd ~/colcon_ws
-$ vcs import src < src/warehouse_ros_mongo.repos
-$ sudo apt-get update && rosdep install --from-paths src --ignore-src -y
-$ colcon build
-$ source ~/colcon_ws/install/setup.bash
-$ sudo echo 'source ~/colcon_ws/install/setup.bash' >> ~/.bashrc
+docker compose down
 ```
 
-## Troubleshooting
-
-1. On ROS2 Humble if slider_control does not show GUI properly, update file
-   `/opt/ros/humble/lib/python3.10/site-packages/joint_state_publisher_gui/joint_state_publisher_gui.py`
-   from here: https://github.com/ros/joint_state_publisher/blob/ros2/joint_state_publisher_gui/joint_state_publisher_gui/joint_state_publisher_gui.py
-
-
-## URDF Model Graph
-
-[mycobot 280 m5](./mycobot_description/urdf/mycobot_280_m5/mycobot_280_m5.urdf)
-
-![280 m5](./demo_img/280m5/280_m5.png)
-
-[mycobot 280 m5 pump](./mycobot_description/urdf/mycobot_280_m5/mycobot_280_m5_with_pump.urdf)
-
-![280 m5 pump](./demo_img/280m5/280_m5_pump.png)
-
-[mycobot 280 m5 camera flange](./mycobot_description/urdf/mycobot_280_m5/mycobot_280_m5_with_camera_flange.urdf)
-
-![280 m5 camera flange](./demo_img/280m5/280_m5_camera_flange.png)
-
-[mycobot 280 m5 camera flange & pump](./mycobot_description/urdf/mycobot_280_m5/mycobot_280_m5_with_camera_flange_pump.urdf)
-
-![280 m5 camera flange & pump](./demo_img/280m5/280_m5_camera_flange_pump.png)
-
-[mycobot 280 m5 adaptive gripper](./mycobot_description/urdf/mycobot_280_m5/mycobot_280_m5_adaptive_gripper.urdf)
-![280 m5 adaptive gripper](./demo_img/280m5/280_m5_adaptive_gripper.png)
-
-[mycobot 280 pi](./mycobot_description/urdf/mycobot_280_pi/mycobot_280_pi.urdf)
-
-![280 pi](./demo_img/280pi/280_pi.png)
-
-[mycobot 280 pi pump](./mycobot_description/urdf/mycobot_280_pi/mycobot_280_pi_with_pump.urdf)
-
-![280 pi pump](./demo_img/280pi/280_pi_pump.png)
-
-[mycobot 280 pi camera flange](./mycobot_description/urdf/mycobot_280_pi/mycobot_280_pi_with_camera_flange.urdf)
-
-![280 pi camera flange](./demo_img/280pi/280_pi_camera_flange.png)
-
-[mycobot 280 pi camera flange & pump](./mycobot_description/urdf/mycobot_280_pi/mycobot_280_pi_with_camera_flange_pump.urdf)
-
-![280 pi camera flange pump](./demo_img/280pi/280_pi_camera_flange_pump.png)
-
-[mycobot 280 pi adaptive gripper](./mycobot_description/urdf/mycobot_280_pi/mycobot_280_pi_adaptive_gripper.urdf)
-![280 pi adaptive gripper](./demo_img/280pi/280_pi_adaptive_gripper.png)
-
-
-[mycobot 280 JetsonNano](./mycobot_description/urdf/mycobot_280_jn/mycobot_280_jn.urdf)
-
-![280 jn](./demo_img/280jn/280jn.png)
-
-[mycobot 280 JetsonNano adaptive gripper](./mycobot_description/urdf/mycobot_280_jn/mycobot_280_jn_adaptive_gripper.urdf)
-![280 m5 adaptive gripper](./demo_img/280jn/280jn_adaptive_gripper.png)
-
-
-[mycobot 280 Arduino](./mycobot_description/urdf/mycobot_280_arduino/mycobot_280_arduino.urdf)
-
-![280 jn](./demo_img/280ar/280ar.png)
-
-[mycobot 280 Arduino adaptive gripper](./mycobot_description/urdf/mycobot_280_arduino/mycobot_280_arduino_adaptive_gripper.urdf)
-![280 AR adaptive gripper](./demo_img/280ar/280ar_adaptive_gripper.png)
-
-
-[mycobot 280 x3pi](./mycobot_description/urdf/mycobot_280_x3pi/mycobot_280_x3pi.urdf)
-
-![280 x3pi](./demo_img/280pi/280_pi.png)
-
-[mycobot 280 x5pi](./mycobot_description/urdf/mycobot_280_x5pi/mycobot_280_x5pi.urdf)
-
-![280 x5pi](./demo_img/280pi/280_pi.png)
-
-[mycobot 280 RDKX5](./mycobot_description/urdf/mycobot_280_rdkx5/mycobot_280_rdkx5.urdf)
-
-![280 rdkx5](./demo_img/280rdkx5/280rdkx5.png)
-
-[mycobot 280 RDKX5 adaptive gripper](./mycobot_description/urdf/mycobot_280_rdkx5/mycobot_280_rdkx5_adaptive_gripper.urdf)
-
-![280 rdkx5 gripper](./demo_img/280rdkx5/280rdkx5_adaptive_gripper.png)
-
-[mechArm 270 m5](./mycobot_description/urdf/mecharm_270_m5/mecharm_270_m5.urdf)
-
-![270 m5](./demo_img/270m5/270m5.png)
-
-[mechArm 270 m5 adaptive gripper](./mycobot_description/urdf/mecharm_270_m5/mecharm_270_m5_adaptive_gripper.urdf)
-
-![270 m5 gripper](./demo_img/270m5/270m5_adaptive_gripper.png)
-
-[mechArm 270 pi](./mycobot_description/urdf/mecharm_270_pi/mecharm_270_pi.urdf)
-
-![270 pi](./demo_img/270pi/270pi.png)
-
-[mechArm 270 pi adaptive gripper](./mycobot_description/urdf/mecharm_270_pi/mecharm_270_pi_adaptive_gripper.urdf)
-
-![270 pi gripper](./demo_img/270pi/270PI_adaptive_gripper.png)
-
-[myPalletizer 260 m5](./mycobot_description/urdf/mypalletizer_260_m5/mypalletizer_260_m5.urdf)
-
-![260 m5](./demo_img/260m5/260m5.png)
-
-[myPalletizer 260 m5 adaptive gripper](./mycobot_description/urdf/mypalletizer_260_m5/mypalletizer_260_m5_adaptive_gripper.urdf)
-
-![260 m5 gripper](./demo_img/260m5/260m5_gripper.png)
-
-[myPalletizer 260 pi](./mycobot_description/urdf/mypalletizer_260_pi/mypalletizer_260_pi.urdf)
-
-![260 pi](./demo_img/260pi/260pi.png)
-
-[myPalletizer 260 pi adaptive gripper](./mycobot_description/urdf/mypalletizer_260_pi/mypalletizer_260_pi_adaptive_gripper.urdf)
-
-![260 pi gripper](./demo_img/260pi/260pi_gripper.png)
-
-[mycobot 320 m5 2022](./mycobot_description/urdf/mycobot_320_m5_2022/mycobot_320_m5_2022.urdf)
-
-![320 m5 2022](./demo_img/320m5_2022/320m5_2022.png)
-
-[mycobot 320 m5 2022 adaptive gripper](./mycobot_description/urdf/mycobot_320_m5_2022/mycobot_320_m5_2022_adaptive_gripper.urdf)
-
-![320 m5 2022 adaptive gripper](./demo_img/320m5_2022/320m5_adaptive_gripper.png)
-
-[mycobot 320 m5 2022 force gripper](./mycobot_description/urdf/mycobot_320_m5_2022/mycobot_320_m5_2022_force_gripper.urdf)
-
-![320 m5 2022 force gripper](./demo_img/320m5_2022/320m5_force_gripper.png)
-
-[mycobot 320 pi 2022](./mycobot_description/urdf/mycobot_320_pi_2022/mycobot_320_pi_2022.urdf)
-
-![320 pi 2022](./demo_img/320pi_2022/320pi_2022.png)
-
-[mycobot 320 pi 2022 adaptive gripper](./mycobot_description/urdf/mycobot_320_pi_2022/mycobot_320_pi_2022_adaptive_gripper.urdf)
-
-![320 pi 2022 force gripper](./demo_img/320pi_2022/320pi_force_gripper.png)
-
-[mycobot 320 pi 2022 force gripper](./mycobot_description/urdf/mycobot_320_pi_2022/mycobot_320_pi_2022_force_gripper.urdf)
-
-![320 pi 2022 force gripper](./demo_img/320pi_2022/320pi_force_gripper.png)
-
-[ultraArm P340](./mycobot_description/urdf/ultraArm_p340/ultraArm_p340.urdf)
-
-![p340](./demo_img/ultraArm_p340/ultraArmp340.png)
-
-[mybuddy](./mycobot_description/urdf/mybuddy/mybuddy.urdf)
-
-![mybuddy](./demo_img/mybuddy/mybuddy.png)
-
-[mycobot pro 600](./mycobot_description/urdf/mycobot_pro_600/mycobot_pro_600.urdf)
-
-![pro600](./demo_img/pro600/pro600.png)
-
-[myArm 300 Pi](./mycobot_description/urdf/myarm_300_pi/myarm_300_pi.urdf)
-
-![myarm](./demo_img/myarm300/myarm300.png)
-
-[mycobot pro 630](./mycobot_description/urdf/mycobot_pro_630/mycobot_pro_630.urdf)
-
-![pro630](./demo_img/pro630/pro630.png)
-
-[mycobot pro 450](./mycobot_description/urdf/mycobot_pro_450/mycobot_pro_450.urdf)
-
-![pro450](./demo_img/pro450/pro450.png)
-
-[mycobot pro 450 force gripper](./mycobot_description/urdf/mycobot_pro_450/mycobot_pro_450_force_gripper.urdf)
-
-![pro450 force gripper](./demo_img/pro450/pro450_force_gripper.png)
-
-[ultraArm P1](./mycobot_description/urdf/ultraArm_p1/ultraArm_p1.urdf)
-
-![pro450](./demo_img/ultraArm_p1/p1.png)
+Esto elimina el contenedor de esta sesión; conserva la imagen para el próximo
+arranque. No borra el repositorio.
+
+### Si tenés una GPU NVIDIA
+
+La configuración predeterminada usa renderizado por CPU para evitar depender
+de una GPU concreta. Si necesitás aceleración, instalá el
+[NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+en el host y ejecutá:
+
+```bash
+docker compose -f compose.yaml -f compose.nvidia.yaml up
+```
+
+Usá los mismos archivos `-f` al ejecutar `down`. El renderizado por CPU puede ser
+más lento; si RViz falla con el controlador gráfico de tu equipo, probá esta
+variante cuando tengas una GPU NVIDIA compatible.
+
+## Mover el robot en RViz
+
+### Plan y Execute
+
+1. Dejá el destino en **Gazebo** y el seguimiento desactivado.
+2. En **MotionPlanning**, elegí `arm_group`.
+3. Usá **Start State → <current>** y desplazá el objetivo con el marcador.
+4. Pulsá **Plan**, revisá la trayectoria y después **Execute**.
+5. Para la pinza, elegí `gripper_group`, mantené Start State en `<current>` y
+   seleccioná **Goal State → open** o **closed**. Planificá y ejecutá de nuevo.
+
+La animación de la trayectoria en RViz es una previsualización. Observá el robot
+en Gazebo y el resultado de Execute para comprobar que se ejecutó. Si cambiás
+la postura o el destino, generá un plan nuevo.
+
+### Seguimiento al arrastrar
+
+1. Pulsá **Activar seguimiento** en el panel **myCobot — Seguimiento en vivo**.
+2. Arrastrá las flechas para trasladar el objetivo o los anillos para girarlo.
+   La herramienta **Interact** se selecciona al activar el seguimiento.
+3. Cada objetivo se planifica y ejecuta automáticamente. Para la pinza usá el
+   deslizador del panel.
+4. Pulsá **Detener seguimiento** antes de volver a los botones manuales de
+   MotionPlanning o de cambiar el destino.
+
+Activar seguimiento conserva la postura medida. El movimiento empieza al
+arrastrar o cambiar el deslizador. Se ejecuta una acción por vez y se conserva
+el último objetivo pendiente por grupo; el robot sigue trayectorias sucesivas
+y puede tardar en alcanzar el marcador. Un objetivo fallido muestra el error
+y requiere un nuevo movimiento del usuario para volver a intentarlo.
+
+## Conectar el manipulador físico
+
+Detené la simulación anterior. En el host, comprobá el puerto real y habilitá
+el archivo adicional de USB:
+
+```bash
+ls -l /dev/ttyACM0
+export MYCOBOT_PORT=/dev/ttyACM0
+docker compose -f compose.yaml -f compose.hardware.yaml up
+```
+
+Si el dispositivo aparece como `/dev/ttyUSB0`, cambiá `MYCOBOT_PORT`. Dentro del
+contenedor se presenta siempre como `/dev/ttyACM0`. El archivo adicional abre
+el controlador USB, pero mantiene **`allow_motion:=false`**. Gazebo sigue siendo
+el destino inicial y la selección física para ejecutar movimientos está bloqueada.
+
+Antes de permitir movimiento, verificá calibración, zona de trabajo y parada
+del brazo y la pinza con el firmware instalado. Consultá la
+[guía de hardware](mycobot_280/mycobot_280_hardware/README.md), teniendo en cuenta
+que el workspace de esta imagen está en `/opt/mycobot_ws`.
+
+Después de esas comprobaciones, detené el servicio y ejecutá una sesión física
+con permiso explícito:
+
+```bash
+docker compose -f compose.yaml -f compose.hardware.yaml down
+docker compose -f compose.yaml -f compose.hardware.yaml run --rm mycobot \
+  ros2 launch mycobot_280_hardware control.launch.py \
+  adaptive_gripper:=true port:=/dev/ttyACM0 \
+  allow_motion:=true gripper_stop_confirmed:=true
+```
+
+`gripper_stop_confirmed:=true` declara que el operador ya verificó la parada;
+el lanzamiento no realiza esa prueba. Para NVIDIA, agregá también
+`-f compose.nvidia.yaml` a los comandos de hardware.
+
+En RViz, con seguimiento y ejecución detenidos, pulsá **Manipulador físico**,
+confirmá y comprobá **Destino: brazo físico**. Plan/Execute y seguimiento pasan
+a controlar el robot real; Gazebo conserva su postura. Volvé a planificar al
+cambiar el destino. Solo un controlador debe abrir el USB: no ejecutes otro
+monitor, script serie ni el contenedor anterior en paralelo sobre ese puerto.
+
+La reconexión USB no reactiva una sesión física. Si falla la parada, revisá el
+equipo y resolvé el fallo antes de reiniciar. El seguimiento automático tiene
+[validación ROS/Gazebo](docs/testing/2026-10-27-automatic-plan-execute.md) y una
+[prueba física acotada de pinza](docs/testing/2026-10-27-gripper-response.md).
+La precisión cartesiana del brazo físico sigue teniendo
+[limitaciones medidas](docs/testing/2026-10-26-plan-cartesian-physical.md).
+
+## Opciones y comandos útiles
+
+Para entrar al contenedor que dejó activo `docker compose up`, desde otra terminal
+ubicada en la raíz del repositorio:
+
+```bash
+docker compose exec mycobot bash
+```
+
+En esa shell, cargá el entorno antes de usar ROS:
+
+```bash
+source /opt/ros/humble/setup.bash
+source /opt/mycobot_ws/install/setup.bash
+ros2 control list_controllers -c /simulation/controller_manager
+ros2 topic echo /joint_states --once
+ros2 topic echo /mycobot_control/status --once
+```
+
+Deben estar activos `joint_state_broadcaster`, `mycobot280m5_group_controller` y,
+con pinza, `mycobot280m5_gripper_controller`. Los controladores `mycobot280m5_live_*`
+pueden estar inactivos: el seguimiento actual usa acciones de trayectoria.
+
+Para cambiar opciones del lanzamiento, detené primero el servicio y usá `run`:
+
+```bash
+docker compose down
+# Simular solo el brazo, sin pinza.
+docker compose run --rm mycobot \
+  ros2 launch mycobot_280_hardware control.launch.py \
+  adaptive_gripper:=false launch_driver:=false
+```
+
+| Argumento de `control.launch.py` | Predeterminado | Uso |
+| --- | --- | --- |
+| `adaptive_gripper` | `true` | Incluir la pinza. |
+| `launch_driver` | `true` | Abrir USB; Compose base pasa `false`. |
+| `port` | `/dev/ttyACM0` | Puerto serie dentro del contenedor. |
+| `baudrate` | `115200` | Velocidad serie. |
+| `allow_motion` | `false` | Permitir habilitar el destino físico. |
+| `gripper_stop_confirmed` | `false` | Confirmación del operador sobre la parada. |
+| `gui` / `use_rviz` | `true` | Mostrar Gazebo / RViz. |
+
+Compose usa por defecto `ROS_DOMAIN_ID=52` y el puerto de Gazebo `11352` para
+separarse del contenedor histórico de este equipo (dominio 42). Si los cambiás,
+exportá las mismas variables en todas las terminales. Para limitar memoria al
+compilar, podés usar `BUILD_JOBS=1 docker compose build`.
+
+## Problemas frecuentes
+
+| Problema | Qué revisar |
+| --- | --- |
+| `docker compose` no existe | Instalá el plugin Compose v2; no basta con Docker Engine. |
+| Error de permisos al acceder a Docker | Configurá el acceso de tu usuario según la guía de instalación de Docker. |
+| No abre Gazebo o RViz / error de display | Comprobá `DISPLAY`, el archivo `XAUTHORITY` y `/tmp/.X11-unix` en el host. Reexportá la autorización después de iniciar una nueva sesión gráfica. |
+| `bind source path does not exist` | Revisá la ruta de `XAUTHORITY`; Compose no crea un archivo de autorización vacío. |
+| Build terminado por falta de memoria | Reintentá con `BUILD_JOBS=1 docker compose build`. |
+| RViz anima pero Gazebo no cambia | Revisá Execute y el destino. Con `start point deviates`, elegí Start State `<current>` y planificá de nuevo. |
+| El destino físico es rechazado | Revisá USB, mediciones, permisos de movimiento y confirmación de parada. Leé el texto del panel. |
+| Código cambiado sin efecto | Reconstruí la imagen y recreá el contenedor con `docker compose up`. |
+
+## Desarrollo y pruebas
+
+El [Dockerfile](Dockerfile) instala las dependencias y compila el código en
+`/opt/mycobot_ws`. Usa la [imagen OSRF de ROS](https://hub.docker.com/r/osrf/ros)
+y fija el commit de `warehouse_ros_mongo` que se utiliza en este proyecto.
+Las versiones de los paquetes apt/pip y la etiqueta base pueden recibir
+actualizaciones; no es una imagen con todas las versiones congeladas.
+
+Para ejecutar las pruebas sin abrir ventanas ni acceder a USB:
+
+```bash
+docker run --rm mycobot-rviz-live-sim:humble bash -c '
+  cd /opt/mycobot_ws
+  python3 -m pytest -q src/mycobot/mycobot_280
+'
+docker run --rm mycobot-rviz-live-sim:humble bash -c '
+  cd /opt/mycobot_ws
+  colcon test --packages-select mycobot_280_live_control --return-code-on-test-failure &&
+  colcon test-result --verbose
+'
+```
+
+Las pruebas de software no sustituyen la validación física. Los estados de pinza
+`open` (`0.15 rad`) y `closed` (`-0.5 rad`) son posiciones del modelo, no distancias
+en milímetros. El agarre y transporte de objetos no están validados.
+
+| Paquete | Función |
+| --- | --- |
+| `mycobot_description` | URDF, mallas y texturas. |
+| `mycobot_280_gazebo` | Simulación y controladores. |
+| `mycobot_280_moveit2` | Planificación e interfaz de RViz. |
+| `mycobot_280_pick_place_demo` | Demo de movimientos del brazo en simulación. |
+| `mycobot_280_hardware` | Control USB y coordinador del destino. |
+| `mycobot_280_live_control` | Panel y seguimiento con Plan & Execute. |
+| `mycobot_280_control_interfaces` | Interfaces de las sesiones físicas. |
+
+## Contenedor anterior de este equipo
+
+La configuración nueva es independiente de `ros2-humble`. Para seguir usando
+ese entorno ya instalado, desde Ubuntu:
+
+```bash
+docker start ros2-humble
+docker cp "$XAUTHORITY" ros2-humble:/tmp/mycobot-Xauthority
+docker exec -it -e ROS_DOMAIN_ID=42 -e DISPLAY="$DISPLAY" \
+  -e XAUTHORITY=/tmp/mycobot-Xauthority ros2-humble bash
+```
+
+Dentro del contenedor anterior, las rutas siguen siendo:
+
+```bash
+source /opt/ros/humble/setup.bash
+cd /root/ros2_ws
+colcon build --symlink-install --packages-up-to \
+  mycobot_280_hardware mycobot_280_pick_place_demo
+source install/setup.bash
+ros2 launch mycobot_280_hardware control.launch.py \
+  adaptive_gripper:=true launch_driver:=false
+```
+
+El repositorio está montado en `/root/mycobot_ros2_packages` y el workspace en
+`/root/ros2_ws`. Esas rutas corresponden al entorno anterior, no a la imagen
+portable. Detené esa sesión antes de conectar el USB desde la nueva.
+
+## Origen y licencia
+
+Basado en [Elephant Robotics mycobot_ros2](https://github.com/elephantrobotics/mycobot_ros2).
+Se conservan las licencias y atribuciones de los paquetes incluidos.

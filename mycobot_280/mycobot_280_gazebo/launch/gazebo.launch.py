@@ -2,13 +2,17 @@
 
 import os
 import re
+import tempfile
+import yaml
 
 from launch import LaunchDescription
+from launch.actions import OpaqueFunction
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch.conditions import IfCondition
 from launch_ros.substitutions import FindPackageShare
 import xacro
 
@@ -18,9 +22,22 @@ def _strip_xml_comments(xml_text: str) -> str:
     return re.sub(r"<!--(.*?)-->", "", xml_text, flags=re.DOTALL)
 
 
-def generate_launch_description() -> LaunchDescription:
+def _launch_setup(context):
+    gripper = LaunchConfiguration("adaptive_gripper").perform(context).lower() == "true"
+
     pkg_share = FindPackageShare(package="mycobot_280_gazebo").find("mycobot_280_gazebo")
     default_model_path = os.path.join(pkg_share, "urdf", "mycobot_280_m5_gazebo.urdf.xacro")
+
+    namespace = LaunchConfiguration("control_namespace", default="").perform(context).strip("/")
+    manager = "/" + namespace + "/controller_manager" if namespace else "/controller_manager"
+    controller_params = ""
+    if namespace:
+        with open(os.path.join(pkg_share, "config", "ros2_controllers_gripper.yaml" if gripper else "ros2_controllers.yaml")) as stream:
+            config = yaml.safe_load(stream)
+        config = {"/" + namespace + "/" + key: value for key, value in config.items()}
+        with tempfile.NamedTemporaryFile(mode="w", suffix="-mycobot-controllers.yaml", delete=False) as stream:
+            yaml.safe_dump(config, stream)
+            controller_params = stream.name
 
     use_sim_time = LaunchConfiguration("use_sim_time")
     gui = LaunchConfiguration("gui")
@@ -48,7 +65,7 @@ def generate_launch_description() -> LaunchDescription:
         description="Entity name spawned in Gazebo.",
     )
 
-    doc = xacro.process_file(default_model_path)
+    doc = xacro.process_file(default_model_path, mappings={"adaptive_gripper": str(gripper).lower(), "control_namespace": namespace, "controller_params": controller_params})
     robot_description_xml = _strip_xml_comments(doc.toxml())
 
     gazebo_ros_share = FindPackageShare(package="gazebo_ros").find("gazebo_ros")
@@ -64,6 +81,8 @@ def generate_launch_description() -> LaunchDescription:
 
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
+        namespace=namespace,
+        remappings=[("/tf", "/" + namespace + "/tf"), ("/tf_static", "/" + namespace + "/tf_static")] if namespace else [],
         executable="robot_state_publisher",
         output="screen",
         parameters=[
@@ -80,7 +99,7 @@ def generate_launch_description() -> LaunchDescription:
             "-entity",
             entity_name,
             "-topic",
-            "robot_description",
+            "/" + namespace + "/robot_description" if namespace else "robot_description",
         ],
         output="screen",
     )
@@ -91,7 +110,7 @@ def generate_launch_description() -> LaunchDescription:
         arguments=[
             "joint_state_broadcaster",
             "--controller-manager",
-            "/controller_manager",
+            manager,
         ],
         output="screen",
     )
@@ -102,11 +121,26 @@ def generate_launch_description() -> LaunchDescription:
         arguments=[
             "mycobot280m5_group_controller",
             "--controller-manager",
-            "/controller_manager",
+            manager,
         ],
         output="screen",
     )
 
+    gripper_spawner = Node(
+        package="controller_manager", executable="spawner",
+        arguments=["mycobot280m5_gripper_controller", "--controller-manager", manager],
+        output="screen", condition=IfCondition(LaunchConfiguration("adaptive_gripper")),
+    )
+    live_arm_spawner = Node(
+        package="controller_manager", executable="spawner",
+        arguments=["mycobot280m5_live_arm_controller", "--inactive", "--controller-manager", manager],
+        output="screen",
+    )
+    live_gripper_spawner = Node(
+        package="controller_manager", executable="spawner",
+        arguments=["mycobot280m5_live_gripper_controller", "--inactive", "--controller-manager", manager],
+        output="screen", condition=IfCondition(LaunchConfiguration("adaptive_gripper")),
+    )
     start_jsb_after_spawn = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=spawn_entity_node,
@@ -117,7 +151,7 @@ def generate_launch_description() -> LaunchDescription:
     start_jtc_after_jsb = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
-            on_exit=[arm_trajectory_controller_spawner],
+            on_exit=[arm_trajectory_controller_spawner, gripper_spawner, live_arm_spawner, live_gripper_spawner],
         )
     )
 
@@ -134,3 +168,13 @@ def generate_launch_description() -> LaunchDescription:
             start_jtc_after_jsb,
         ]
     )
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        DeclareLaunchArgument("control_namespace", default_value=""),
+        DeclareLaunchArgument("adaptive_gripper", default_value="false",
+                              choices=["true", "false"],
+                              description="Use the myCobot 280 M5 adaptive gripper model and controller."),
+        OpaqueFunction(function=lambda context: _launch_setup(context).entities),
+    ])

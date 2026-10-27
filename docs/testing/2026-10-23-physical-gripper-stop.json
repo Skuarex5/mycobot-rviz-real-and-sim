@@ -1,0 +1,85 @@
+{
+  "verified": true,
+  "before_angles": [
+    -0.35,
+    -0.52,
+    -0.43,
+    -1.05,
+    -0.52,
+    -0.79
+  ],
+  "before_value": 14,
+  "target_value": 22,
+  "move_reply": 1,
+  "opening_samples": [
+    14,
+    14,
+    14,
+    14,
+    15,
+    17
+  ],
+  "measured_opening": true,
+  "moving_seen": true,
+  "value_at_stop": 17,
+  "strategy": "hold_position",
+  "stop_reply": 1,
+  "samples_after_stop": [
+    [
+      1,
+      18
+    ],
+    [
+      1,
+      20
+    ],
+    [
+      1,
+      20
+    ],
+    [
+      1,
+      20
+    ],
+    [
+      1,
+      19
+    ],
+    [
+      1,
+      17
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      17
+    ]
+  ],
+  "after_angles": [
+    -0.35,
+    -0.52,
+    -0.43,
+    -1.05,
+    -0.52,
+    -0.79
+  ]
+}

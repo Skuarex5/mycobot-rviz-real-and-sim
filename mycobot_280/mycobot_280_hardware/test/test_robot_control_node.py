@@ -309,6 +309,41 @@ class SimulatedServoDevice:
         self.close_calls += 1
 
 
+def test_small_goal_waits_for_actual_motion_to_finish_before_success():
+    now = [200.0]
+    dev = SimulatedServoDevice(clock_fn=lambda: now[0])
+    node = RobotController(
+        arm_factory=lambda *args: ControlledArm(dev, allow_motion=True, min_io_interval_s=0),
+        parameter_overrides=[Parameter('allow_motion', value=True)],
+        sleep_fn=lambda dt: now.__setitem__(0, now[0] + max(.01, dt)),
+        clock_fn=lambda: now[0],
+    )
+    try:
+        goal = _make_goal([([.035, 0., 0., 0., 0., 0.], 3.)])
+        handle = FakeGoalHandle(goal)
+        result = node._execute_callback(handle)
+        assert result.error_code == ERROR_NONE and handle.status == 'succeeded'
+        assert dev.is_moving() == 0
+        assert math.radians(dev.get_angles()[0]) == pytest.approx(.035, abs=.001)
+    finally:
+        node.destroy_node()
+
+
+def test_final_position_alone_cannot_verify_a_robot_still_reporting_motion():
+    dev = FakeDevice()
+    node, _ = _make_controller(dev, allow_motion=True)
+    dev.moving = 1
+    try:
+        goal = _make_goal([([.1, 0., 0., 0., 0., 0.], 1.)])
+        handle = FakeGoalHandle(goal)
+        result = node._execute_callback(handle)
+        assert handle.status == 'aborted'
+        assert result.error_code == ERROR_GOAL_TOLERANCE_VIOLATED
+        assert dev.stop_calls > 0
+    finally:
+        node.destroy_node()
+
+
 def test_dense_moveit_trajectory_executes_smoothly_with_single_command_and_instrumentation():
     now = [200.0]
 

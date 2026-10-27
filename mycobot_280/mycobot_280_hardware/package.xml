@@ -3,11 +3,19 @@
 <package format="3">
   <name>mycobot_280_hardware</name>
   <version>0.0.1</version>
-  <description>Read-only hardware monitor for the myCobot 280 M5 (publishes /joint_states).</description>
+  <description>myCobot 280 M5 USB driver and RViz destination coordinator.</description>
   <maintainer email="igor@todo.todo">igor</maintainer>
   <license>BSD</license>
 
   <exec_depend>rclpy</exec_depend>
+  <exec_depend>rosidl_runtime_py</exec_depend>
+  <exec_depend>mycobot_280_control_interfaces</exec_depend>
+  <exec_depend>mycobot_280_live_control</exec_depend>
+  <exec_depend>controller_manager_msgs</exec_depend>
+  <exec_depend>moveit_msgs</exec_depend>
+  <exec_depend>action_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
   <exec_depend>builtin_interfaces</exec_depend>
   <exec_depend>control_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>

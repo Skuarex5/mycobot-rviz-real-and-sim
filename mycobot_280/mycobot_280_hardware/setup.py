@@ -19,12 +19,13 @@ setup(
     zip_safe=True,
     maintainer='igor',
     maintainer_email='igor@todo.todo',
-    description='Read-only hardware monitor for the myCobot 280 M5.',
+    description='myCobot 280 M5 USB driver and RViz destination coordinator.',
     license='BSD',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'robot_monitor = mycobot_280_hardware.robot_monitor_node:main',
+            'control_coordinator = mycobot_280_hardware.control_coordinator:main',
             'robot_control = mycobot_280_hardware.robot_control_node:main',
         ],
     },

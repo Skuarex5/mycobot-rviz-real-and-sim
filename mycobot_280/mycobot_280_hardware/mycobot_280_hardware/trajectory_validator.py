@@ -387,7 +387,15 @@ def coalesce_waypoints(
 
     while seg_start_idx < n:
         best_end_idx = seg_start_idx
-        for cand_idx in range(seg_start_idx + 1, n):
+        # Straight TOTG paths commonly have thousands of samples. Check the
+        # entire remaining segment once before rescanning every growing prefix.
+        # Use the same deviation and monotonicity checks; corners still take
+        # the incremental path below.
+        remaining = waypoints[seg_start_idx:]
+        straight = _can_coalesce_subpath(anchor_pos, remaining, tol)
+        if straight:
+            best_end_idx = n - 1
+        for cand_idx in (() if straight else range(seg_start_idx + 1, n)):
             sub = waypoints[seg_start_idx:cand_idx + 1]
             if _can_coalesce_subpath(anchor_pos, sub, tol):
                 best_end_idx = cand_idx

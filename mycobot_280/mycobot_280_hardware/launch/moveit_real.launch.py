@@ -17,6 +17,7 @@ from typing import Any, Dict
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import OpaqueFunction
 from launch.actions import (
     DeclareLaunchArgument,
     GroupAction,
@@ -46,7 +47,9 @@ def _load_text(file_path: str) -> str:
         return f.read()
 
 
-def generate_launch_description() -> LaunchDescription:
+def _launch_setup(context):
+    gripper = LaunchConfiguration("adaptive_gripper").perform(context).lower() == "true"
+
     hw_share = get_package_share_directory('mycobot_280_hardware')
     moveit_share = get_package_share_directory('mycobot_280_moveit2')
     gazebo_share = get_package_share_directory('mycobot_280_gazebo')
@@ -54,11 +57,11 @@ def generate_launch_description() -> LaunchDescription:
     urdf_xacro_path = os.path.join(
         gazebo_share, 'urdf', 'mycobot_280_m5_gazebo.urdf.xacro'
     )
-    srdf_path = os.path.join(moveit_share, 'config', 'mycobot_280_m5.srdf')
+    srdf_path = os.path.join(moveit_share, 'config', 'mycobot_280_m5_gripper.srdf' if gripper else 'mycobot_280_m5.srdf')
     kinematics_yaml_path = os.path.join(moveit_share, 'config', 'kinematics.yaml')
-    joint_limits_yaml_path = os.path.join(moveit_share, 'config', 'joint_limits.yaml')
+    joint_limits_yaml_path = os.path.join(moveit_share, 'config', 'joint_limits_gripper.yaml' if gripper else 'joint_limits.yaml')
     moveit_controllers_yaml_path = os.path.join(
-        moveit_share, 'config', 'moveit_controllers_gazebo.yaml'
+        moveit_share, 'config', 'moveit_controllers_gripper.yaml' if gripper else 'moveit_controllers_gazebo.yaml'
     )
     default_rviz_config_path = os.path.join(moveit_share, 'config', 'moveit.rviz')
     robot_control_launch_path = os.path.join(
@@ -116,7 +119,7 @@ def generate_launch_description() -> LaunchDescription:
         ),
     ]
 
-    urdf_doc = xacro.process_file(urdf_xacro_path)
+    urdf_doc = xacro.process_file(urdf_xacro_path, mappings={"adaptive_gripper": str(gripper).lower()})
     robot_description = {
         'robot_description': _strip_xml_comments(urdf_doc.toxml())
     }
@@ -168,7 +171,9 @@ def generate_launch_description() -> LaunchDescription:
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(robot_control_launch_path),
                 launch_arguments={
-                    'port': LaunchConfiguration('port'),
+                    'adaptive_gripper': str(gripper).lower(),
+                    'gripper_stop_confirmed': LaunchConfiguration('gripper_stop_confirmed'),
+                'port': LaunchConfiguration('port'),
                     'baudrate': LaunchConfiguration('baudrate'),
                     'update_rate': LaunchConfiguration('update_rate'),
                     'allow_motion': LaunchConfiguration('allow_motion'),
@@ -220,3 +225,15 @@ def generate_launch_description() -> LaunchDescription:
     return LaunchDescription(
         [set_lc_numeric] + args + [driver_include, move_group_node, rviz_node]
     )
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        DeclareLaunchArgument("gripper_stop_confirmed", default_value="false",
+                              choices=["true", "false"],
+                              description="Enable gripper execution only after verifying its firmware-specific stop on the real device."),
+        DeclareLaunchArgument("adaptive_gripper", default_value="false",
+                              choices=["true", "false"],
+                              description="Use the myCobot 280 M5 adaptive gripper model and controller."),
+        OpaqueFunction(function=lambda context: _launch_setup(context).entities),
+    ])

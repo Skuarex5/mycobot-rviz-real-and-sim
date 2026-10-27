@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mycobot_280_m5">
 
+  <xacro:arg name="adaptive_gripper" default="false"/>
+  <xacro:arg name="control_namespace" default=""/>
+  <xacro:arg name="controller_params" default=""/>
+  <xacro:include filename="$(find mycobot_description)/urdf/adaptive_gripper/adaptive_gripper.xacro"/>
+  <xacro:if value="$(arg adaptive_gripper)">
+    <xacro:adaptive_gripper parent="joint6_flange"/>
+  </xacro:if>
+
   <link name="world"/>
 
   <joint name="world_to_g_base" type="fixed">
@@ -293,6 +301,9 @@
       </state_interface>
       <state_interface name="velocity"/>
     </joint>
+    <xacro:if value="$(arg adaptive_gripper)">
+      <xacro:adaptive_gripper_control/>
+    </xacro:if>
   </ros2_control>
 
   <gazebo reference="g_base">
@@ -330,8 +341,26 @@
 
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-      <parameters>$(find mycobot_280_gazebo)/config/ros2_controllers.yaml</parameters>
-      <robot_param_node>robot_state_publisher</robot_param_node>
+      <xacro:if value="${'$(arg control_namespace)' != ''}">
+        <ros><namespace>/$(arg control_namespace)</namespace></ros>
+      </xacro:if>
+      <xacro:if value="${'$(arg controller_params)' != ''}">
+        <parameters>$(arg controller_params)</parameters>
+      </xacro:if>
+      <xacro:if value="${'$(arg controller_params)' == ''}">
+      <xacro:unless value="$(arg adaptive_gripper)">
+        <parameters>$(find mycobot_280_gazebo)/config/ros2_controllers.yaml</parameters>
+      </xacro:unless>
+      <xacro:if value="$(arg adaptive_gripper)">
+        <parameters>$(find mycobot_280_gazebo)/config/ros2_controllers_gripper.yaml</parameters>
+      </xacro:if>
+      </xacro:if>
+      <xacro:if value="${'$(arg control_namespace)' != ''}">
+        <robot_param_node>/$(arg control_namespace)/robot_state_publisher</robot_param_node>
+      </xacro:if>
+      <xacro:if value="${'$(arg control_namespace)' == ''}">
+        <robot_param_node>robot_state_publisher</robot_param_node>
+      </xacro:if>
     </plugin>
   </gazebo>
 

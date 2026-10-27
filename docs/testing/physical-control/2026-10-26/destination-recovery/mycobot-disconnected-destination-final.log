@@ -1,0 +1,2 @@
+PASS physical loss keeps physical destination until explicit user choice
+PASS disconnected driver absent: return to Gazebo, Plan, Execute; physical fault preserved

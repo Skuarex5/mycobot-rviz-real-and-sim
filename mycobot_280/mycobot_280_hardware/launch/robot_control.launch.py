@@ -13,6 +13,7 @@ import re
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import OpaqueFunction
 from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
@@ -25,14 +26,16 @@ def _strip_xml_comments(xml_text: str) -> str:
     return re.sub(r'<!--(.*?)-->', '', xml_text, flags=re.DOTALL)
 
 
-def generate_launch_description() -> LaunchDescription:
+def _launch_setup(context):
+    gripper = LaunchConfiguration("adaptive_gripper").perform(context).lower() == "true"
+
     hw_share = get_package_share_directory('mycobot_280_hardware')
     gazebo_share = get_package_share_directory('mycobot_280_gazebo')
 
     urdf_xacro_path = os.path.join(
         gazebo_share, 'urdf', 'mycobot_280_m5_gazebo.urdf.xacro'
     )
-    urdf_doc = xacro.process_file(urdf_xacro_path)
+    urdf_doc = xacro.process_file(urdf_xacro_path, mappings={"adaptive_gripper": str(gripper).lower()})
     robot_description = {
         'robot_description': _strip_xml_comments(urdf_doc.toxml())
     }
@@ -86,6 +89,8 @@ def generate_launch_description() -> LaunchDescription:
         parameters=[
             params_file,
             {
+                'adaptive_gripper': gripper,
+                'gripper_stop_confirmed': LaunchConfiguration('gripper_stop_confirmed').perform(context).lower() == 'true',
                 'port': LaunchConfiguration('port'),
                 'baudrate': LaunchConfiguration('baudrate'),
                 'update_rate_hz': LaunchConfiguration('update_rate'),
@@ -116,3 +121,15 @@ def generate_launch_description() -> LaunchDescription:
     )
 
     return LaunchDescription([set_lc_numeric] + args + [controller, rsp, rviz])
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        DeclareLaunchArgument("gripper_stop_confirmed", default_value="false",
+                              choices=["true", "false"],
+                              description="Enable gripper execution only after verifying its firmware-specific stop on the real device."),
+        DeclareLaunchArgument("adaptive_gripper", default_value="false",
+                              choices=["true", "false"],
+                              description="Use the myCobot 280 M5 adaptive gripper model and controller."),
+        OpaqueFunction(function=lambda context: _launch_setup(context).entities),
+    ])

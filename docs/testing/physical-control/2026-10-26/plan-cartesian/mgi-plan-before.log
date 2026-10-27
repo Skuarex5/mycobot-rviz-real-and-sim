@@ -1,0 +1,8 @@
+[INFO] [1793039851.957339886] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00181315 seconds
+[INFO] [1793039851.957397526] [moveit_robot_model.robot_model]: Loading robot model 'mycobot_280_m5'...
+[INFO] [1793039851.957405656] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[INFO] [1793039852.311748838] [move_group_interface]: Ready to take commands for planning group arm_group.
+[INFO] [1793039852.311787510] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039852.314846737] [move_group_interface]: Planning request rejected
+[ERROR] [1793039852.315181676] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+timeout: the monitored command dumped core

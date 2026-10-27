@@ -1,0 +1,38 @@
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+/mycobot_control/select_physical std_srvs.srv.SetBool_Response(success=True, message='Destino: brazo físico')
+FAIL Planned execution did not rise according to measured FK
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+/mycobot_control/select_physical std_srvs.srv.SetBool_Response(success=True, message='Destino: Gazebo')
+{
+  "planned_points": 27,
+  "planned_start": [
+    0.48153634062523554,
+    -0.6702064327658225,
+    -0.6058037833672318,
+    -0.5106833391335408,
+    0.18395770316020232,
+    -0.18238690683340741
+  ],
+  "planned_goal": [
+    0.481536419818191,
+    -0.6983486230814316,
+    -0.5008984433161968,
+    -0.5874464744757145,
+    0.18395772012551614,
+    -0.18238682815132906
+  ],
+  "execute_result": {
+    "status": 4,
+    "error": 1
+  },
+  "planned_end": [
+    0.48153634062523554,
+    -0.714712328691678,
+    -0.5215043804959056,
+    -0.6028367236388414,
+    0.16859880574265224,
+    -0.18238690683340741
+  ],
+  "planned_z_change_m": -0.0018900684628298248,
+  "failure": "Planned execution did not rise according to measured FK"
+}

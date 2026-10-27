@@ -1,0 +1,43 @@
+name: mycobot-rviz-live-sim
+
+services:
+  mycobot:
+    image: mycobot-rviz-live-sim:humble
+    build:
+      context: .
+      args:
+        BUILD_JOBS: ${BUILD_JOBS:-2}
+    init: true
+    # FamilyLocal X11 cookies are keyed by hostname.
+    hostname: ${MYCOBOT_X11_HOSTNAME:-mycobot}
+    network_mode: host
+    shm_size: 512m
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-52}
+      GAZEBO_MASTER_URI: ${GAZEBO_MASTER_URI:-http://127.0.0.1:11352}
+      DISPLAY: ${DISPLAY:-}
+      XAUTHORITY: /tmp/mycobot.xauth
+      QT_X11_NO_MITSHM: "1"
+      # Portable default; use compose.nvidia.yaml for NVIDIA acceleration.
+      LIBGL_ALWAYS_SOFTWARE: "1"
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${XAUTHORITY:-/dev/null}
+        target: /tmp/mycobot.xauth
+        read_only: true
+        bind:
+          create_host_path: false
+    command:
+      - ros2
+      - launch
+      - mycobot_280_hardware
+      - control.launch.py
+      - adaptive_gripper:=true
+      - launch_driver:=false
+    stop_grace_period: 20s

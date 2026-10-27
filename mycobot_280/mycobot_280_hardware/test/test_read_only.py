@@ -37,7 +37,15 @@ def test_no_forbidden_servo_commands_in_any_source():
     assert SOURCES
     for path in SOURCES:
         used = set(_identifiers(path))
-        assert not (used & ALWAYS_FORBIDDEN), (path.name, used & ALWAYS_FORBIDDEN)
+        # The approved physical session explicitly verifies last-command refresh;
+        # it remains forbidden in the monitor and every unrelated module.
+        allowed = {
+            'robot_control_node.py': {'set_gripper_value', 'set_fresh_mode'},
+            'gripper_execution.py': {'set_gripper_value'},
+            'hardware_live.py': {'set_gripper_value', 'set_fresh_mode'},
+        }
+        forbidden = ALWAYS_FORBIDDEN - allowed.get(path.name, set())
+        assert not (used & forbidden), (path.name, used & forbidden)
 
 
 def test_monitor_node_is_strictly_read_only():

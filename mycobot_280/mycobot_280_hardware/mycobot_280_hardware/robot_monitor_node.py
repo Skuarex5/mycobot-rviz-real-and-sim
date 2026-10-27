@@ -1,7 +1,7 @@
 """
 Read-only monitor: publishes the real myCobot 280 M5 pose as JointState.
 
-SAFETY: this node only ever calls ``get_angles()`` on the device. It never
+SAFETY: this node only reads arm angles and optional gripper position. It never
 powers on, releases, or commands servos. The device handle is wrapped in
 ``ReadOnlyArm`` so no other method is reachable from the node code.
 """
@@ -12,6 +12,10 @@ import rclpy
 from rclpy.node import Node
 from rclpy.parameter import Parameter
 from sensor_msgs.msg import JointState
+
+from mycobot_280_hardware.gripper_conversion import (
+    GripperCalibration, device_value_to_radians, GRIPPER_JOINT,
+)
 
 from mycobot_280_hardware.joint_conversion import (
     check_signs,
@@ -40,6 +44,9 @@ class ReadOnlyArm:
     def __init__(self, device):
         self._device = device
 
+    def get_gripper_value(self):
+        return self._device.get_gripper_value(gripper_type=1)
+
     def get_angles(self):
         return self._device.get_angles()
 
@@ -53,8 +60,20 @@ def open_mycobot(port: str, baudrate: int) -> ReadOnlyArm:
 class RobotMonitor(Node):
     """Poll joint angles and publish ``/joint_states`` (radians)."""
 
-    def __init__(self, arm_factory: Optional[Callable[[str, int], object]] = None):
-        super().__init__('robot_monitor')
+    def __init__(self, arm_factory: Optional[Callable[[str, int], object]] = None,
+                 parameter_overrides=None):
+        super().__init__('robot_monitor', parameter_overrides=parameter_overrides)
+        self.declare_parameter('adaptive_gripper', False)
+        self.declare_parameter('gripper_closed_rad', -0.74)
+        self.declare_parameter('gripper_open_rad', 0.15)
+        self.declare_parameter('gripper_closed_value', 0.0)
+        self.declare_parameter('gripper_open_value', 100.0)
+        self._adaptive_gripper = bool(self.get_parameter('adaptive_gripper').value)
+        self._gripper_calibration = GripperCalibration(
+            closed_rad=float(self.get_parameter('gripper_closed_rad').value),
+            open_rad=float(self.get_parameter('gripper_open_rad').value),
+            closed_value=float(self.get_parameter('gripper_closed_value').value),
+            open_value=float(self.get_parameter('gripper_open_value').value))
         self.declare_parameter('port', '/dev/ttyACM0')
         self.declare_parameter('baudrate', 115200)
         self.declare_parameter('update_rate_hz', 10.0)
@@ -171,6 +190,13 @@ class RobotMonitor(Node):
         msg.header.frame_id = 'g_base'
         msg.name = list(self._names)
         msg.position = positions
+        if self._adaptive_gripper and self._arm is not None:
+            try:
+                q = device_value_to_radians(self._arm.get_gripper_value(), self._gripper_calibration)
+                msg.name.append(GRIPPER_JOINT)
+                msg.position.append(q)
+            except Exception as exc:
+                self.get_logger().warn(f'Invalid gripper reading: {exc}', throttle_duration_sec=5.0)
         self._pub.publish(msg)
         return True
 

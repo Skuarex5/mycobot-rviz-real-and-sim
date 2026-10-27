@@ -1,0 +1,5 @@
+<library path="live_follow_panel">
+  <class name="mycobot_280_live_control/LiveFollowPanel" type="mycobot_280_live_control::LiveFollowPanel" base_class_type="rviz_common::Panel">
+    <description>Seguimiento continuo del myCobot en Gazebo.</description>
+  </class>
+</library>

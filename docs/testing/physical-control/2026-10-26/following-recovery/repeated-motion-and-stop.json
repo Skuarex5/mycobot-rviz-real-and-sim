@@ -1,0 +1,1037 @@
+{
+  "rejected_marker_distance_from_start_m": 0.0,
+  "rejected_target_distance_from_start_m": 0.0,
+  "moves": [
+    {
+      "requested_rad": 0.06,
+      "measured_rad": 0.04904375198104072
+    },
+    {
+      "requested_rad": -0.06,
+      "measured_rad": -0.04450589592585541
+    },
+    {
+      "requested_rad": 0.06,
+      "measured_rad": 0.049043751981040606
+    }
+  ],
+  "recovery_after_first_move_m": 0.0,
+  "selected_after_stop": true,
+  "statuses": [
+    "Seguimiento desactivado. No se confirm\u00f3 el modo de trayectoria; revis\u00e1 Gazebo y volv\u00e9 a detener.",
+    "Seguimiento desactivado",
+    "Iniciando seguimiento",
+    "Seguimiento activo",
+    "Objetivo fuera de alcance; eleg\u00ed otro movimiento"
+  ],
+  "samples": [
+    {
+      "t": 5685.264380427,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5685.538940757,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5685.663755798,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5685.863643895,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5686.063787235,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5686.264055244,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5686.464116367,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5686.668239928,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5686.863991249,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.1624901533606721,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5687.064009731,
+      "q": {
+        "joint2_to_joint1": 0.3619812868636239,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.24696408915719764,
+        "joint6output_to_joint6": -0.16563174601426187,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5687.264760661,
+      "q": {
+        "joint2_to_joint1": 0.3649483465920143,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5687.465285884,
+      "q": {
+        "joint2_to_joint1": 0.3757693879543792,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5687.66750255,
+      "q": {
+        "joint2_to_joint1": 0.38344883666315416,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5687.883774408,
+      "q": {
+        "joint2_to_joint1": 0.39566614142711454,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5688.083727404,
+      "q": {
+        "joint2_to_joint1": 0.40177479380909464,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5688.265905122,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5688.463725653,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5688.666040589,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5688.867085135,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5689.066584811,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5689.264074027,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5689.46430516,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5689.664061279,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5689.86611893,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5690.065387646,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5690.264040329,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5690.466040918,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5690.665091169,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5690.864246512,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5691.065488058,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5691.264111485,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5691.467238897,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5691.66410928,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5691.865255568,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5692.08519835,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25446900494077324,
+        "joint6_to_joint5": 0.28361600344907856,
+        "joint6output_to_joint6": -0.17941984710501707,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5692.264105209,
+      "q": {
+        "joint2_to_joint1": 0.4110250388446646,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25603980126756815,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5692.465574288,
+      "q": {
+        "joint2_to_joint1": 0.41259583517145954,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.25603980126756815,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5692.66527513,
+      "q": {
+        "joint2_to_joint1": 0.40334559013588955,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2530727415391778,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5692.865269728,
+      "q": {
+        "joint2_to_joint1": 0.39723693775390945,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2515019452123829,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5693.066215351,
+      "q": {
+        "joint2_to_joint1": 0.38798669271833947,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2483603525587931,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5693.265038356,
+      "q": {
+        "joint2_to_joint1": 0.3803072440095644,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.2483603525587931,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5693.483153219,
+      "q": {
+        "joint2_to_joint1": 0.3726277953007894,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24696408915719764,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5693.665506139,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24539329283040273,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5693.86391827,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5694.068394393,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5694.265112704,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5694.4643794,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5694.666119198,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5694.866369114,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5695.065136651,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5695.264384555,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5695.464166827,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5695.667089748,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5695.865317496,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5696.065307923,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5696.264370686,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5696.465539854,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19634954084936207,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5696.66781241,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5696.866937323,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3127630019573839,
+        "joint6output_to_joint6": -0.20088739690454732,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5697.06735483,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3159045946109737,
+        "joint6output_to_joint6": -0.20245819323134223,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5697.26640585,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3204424506661589,
+        "joint6output_to_joint6": -0.20245819323134223,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5697.484459261,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3204424506661589,
+        "joint6output_to_joint6": -0.20245819323134223,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5697.68469535,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5644394800949663,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.32358404331974866,
+        "joint6output_to_joint6": -0.20245819323134223,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5697.865154375,
+      "q": {
+        "joint2_to_joint1": 0.3665191429188092,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.3296926957017289,
+        "joint6output_to_joint6": -0.19931660057775244,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5698.06604829,
+      "q": {
+        "joint2_to_joint1": 0.3680899392456041,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.33126349202852373,
+        "joint6output_to_joint6": -0.19931660057775244,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5698.26704305,
+      "q": {
+        "joint2_to_joint1": 0.369660735572399,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24382249650360785,
+        "joint6_to_joint5": 0.33283428835531864,
+        "joint6output_to_joint6": -0.19931660057775244,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5698.467056401,
+      "q": {
+        "joint2_to_joint1": 0.3803072440095644,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5698.665359532,
+      "q": {
+        "joint2_to_joint1": 0.38641589639154456,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5698.884462301,
+      "q": {
+        "joint2_to_joint1": 0.3988077340807043,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5699.065902342,
+      "q": {
+        "joint2_to_joint1": 0.40491638646268446,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5699.266964368,
+      "q": {
+        "joint2_to_joint1": 0.4064871827894793,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5699.465417274,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5699.666112818,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5699.865487048,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5700.067497826,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5700.265397572,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.061825791,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.123936612,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.247914876,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.466000776,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.664822713,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5701.863929531,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5702.063897014,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    },
+    {
+      "t": 5702.264958574,
+      "q": {
+        "joint2_to_joint1": 0.4155628948998498,
+        "joint3_to_joint2": -0.4799655442984406,
+        "joint4_to_joint3": -0.5628686837681712,
+        "joint5_to_joint4": -0.24225170017681297,
+        "joint6_to_joint5": 0.33440508468211355,
+        "joint6output_to_joint6": -0.19774580425095753,
+        "gripper_controller": -0.4778409090909091
+      }
+    }
+  ]
+}

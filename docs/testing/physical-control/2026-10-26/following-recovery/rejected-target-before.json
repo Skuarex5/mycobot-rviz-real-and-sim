@@ -1,0 +1,110 @@
+{
+  "rejected_marker_distance_from_start_m": 0.0,
+  "rejected_target_distance_from_start_m": 10.0,
+  "failure": "Rejected target left marker stranded away from the robot",
+  "statuses": [
+    "Seguimiento desactivado. No se confirm\u00f3 el modo de trayectoria; revis\u00e1 Gazebo y volv\u00e9 a detener.",
+    "Seguimiento desactivado",
+    "Iniciando seguimiento",
+    "Seguimiento activo",
+    "Objetivo f\u00edsico fuera de alcance: acerc\u00e1 el marcador"
+  ],
+  "samples": [
+    {
+      "t": 4784.095401726,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4784.275351041,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4784.399025488,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4784.562075343,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4784.760810134,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4784.960859158,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4785.162429851,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    },
+    {
+      "t": 4785.367623341,
+      "q": {
+        "joint2_to_joint1": 0.22846359908605773,
+        "joint3_to_joint2": -0.47385689191646047,
+        "joint4_to_joint3": -0.5567600313861911,
+        "joint5_to_joint4": -0.2790781473938933,
+        "joint6_to_joint5": 0.0029670597283903604,
+        "joint6output_to_joint6": -0.030543261909900768,
+        "gripper_controller": -0.4630681818181818
+      }
+    }
+  ]
+}

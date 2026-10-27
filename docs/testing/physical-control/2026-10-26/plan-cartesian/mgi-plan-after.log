@@ -1,0 +1,29 @@
+[INFO] [1793039900.363486779] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00178687 seconds
+[INFO] [1793039900.363540456] [moveit_robot_model.robot_model]: Loading robot model 'mycobot_280_m5'...
+[INFO] [1793039900.363548190] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[INFO] [1793039900.712655396] [move_group_interface]: Ready to take commands for planning group arm_group.
+[INFO] [1793039900.712706462] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039900.716247894] [move_group_interface]: Planning request accepted
+[INFO] [1793039900.718215739] [move_group_interface]: Planning request aborted
+[ERROR] [1793039900.719236187] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793039900.719314251] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039900.731490347] [move_group_interface]: Planning request accepted
+[INFO] [1793039900.733513534] [move_group_interface]: Planning request aborted
+[ERROR] [1793039900.734258598] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793039900.734310365] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039900.737269890] [move_group_interface]: Planning request accepted
+[INFO] [1793039900.738910025] [move_group_interface]: Planning request aborted
+[ERROR] [1793039900.739652103] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793039900.739697883] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039900.742054059] [move_group_interface]: Planning request accepted
+[INFO] [1793039900.743667206] [move_group_interface]: Planning request aborted
+[ERROR] [1793039900.743999320] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793039900.744055532] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793039900.746851991] [move_group_interface]: Planning request accepted
+[INFO] [1793039900.748718537] [move_group_interface]: Planning request aborted
+[ERROR] [1793039900.749443442] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1

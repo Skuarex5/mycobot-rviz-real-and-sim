@@ -2,6 +2,25 @@
 
 import pytest
 
+
+def test_dense_straight_path_is_checked_without_quadratic_prefix_rescans(monkeypatch):
+    import mycobot_280_hardware.trajectory_validator as validator
+
+    points = [validator.WaypointSpec([i / 1400] * 6, [], i * .1, .1, 5)
+              for i in range(1, 1401)]
+    inspected = 0
+    original = validator._can_coalesce_subpath
+
+    def check(anchor, subpath, tolerance):
+        nonlocal inspected
+        inspected += len(subpath)
+        return original(anchor, subpath, tolerance)
+
+    monkeypatch.setattr(validator, '_can_coalesce_subpath', check)
+    result = validator.coalesce_waypoints([0.] * 6, points)
+    assert len(result) == 1 and result[0].positions_rad == [1.] * 6
+    assert inspected <= 2800
+
 from mycobot_280_hardware.joint_conversion import (
     DEFAULT_JOINT_NAMES,
     DEFAULT_LOWER,

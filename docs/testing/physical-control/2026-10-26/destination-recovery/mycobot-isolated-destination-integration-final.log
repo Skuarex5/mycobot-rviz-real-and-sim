@@ -1,0 +1,11 @@
+PASS busy destination rejection and paused simulation freshness
+PASS simulation Plan & Execute, separate execution, live arm/gripper
+PASS selection uses measured state; stale simulation plan rejected
+PASS physical Plan & Execute and separate Plan then Execute; Gazebo holds
+PASS physical live arm/gripper, action exclusion and FK error=2.105022514057312e-06
+PASS simulation and physical gripper cancellation propagation
+PASS physical gripper trajectory after live mode stops
+PASS heartbeat loss revokes physical session without fallback
+PASS reconnecting heartbeat does not rearm hardware
+PASS return to Gazebo after revoked physical session: Plan, Execute, Plan & Execute
+{"physical": {"joint2_to_joint1": -0.3193952531149623, "joint3_to_joint2": 0.8005825278897989, "joint4_to_joint3": -1.2004374595216998, "joint5_to_joint4": 0.3991567999311032, "joint6_to_joint5": 0.7993607974134029, "joint6output_to_joint6": -0.0008726646259971648, "gripper_controller": 0.052100000000000035}, "status": "Destino: Gazebo \u00b7 Control f\u00edsico desactivado; parada verificada"}

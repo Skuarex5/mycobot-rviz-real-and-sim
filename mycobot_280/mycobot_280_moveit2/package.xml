@@ -34,6 +34,8 @@
   <exec_depend>moveit_configs_utils</exec_depend>
   <exec_depend>moveit_ros_move_group</exec_depend>
   <exec_depend>moveit_ros_visualization</exec_depend>
+  <exec_depend>moveit_core</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
   <exec_depend>moveit_ros_warehouse</exec_depend>
   <exec_depend>moveit_setup_assistant</exec_depend>
   <exec_depend>mycobot_280_gazebo</exec_depend>
@@ -49,4 +51,5 @@
   <export>
       <build_type>ament_cmake</build_type>
   </export>
+  <exec_depend>mycobot_280_live_control</exec_depend>
 </package>

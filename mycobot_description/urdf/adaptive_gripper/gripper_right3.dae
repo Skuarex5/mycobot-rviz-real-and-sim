@@ -1,16 +1,15 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
     <contributor>
-      <!-- <author /> -->
+
       <authoring_tool>Rhinoceros 7.5.21082.11001</authoring_tool>
       <comments>Output from Rhinoceros COLLADA Exporter</comments>
-      <!-- <copyright />
-      <source_data /> -->
+
     </contributor>
     <created>2022-08-31T07:55:58Z</created>
     <modified>2022-08-31T07:55:58Z</modified>
-    <unit meter="0.001" name="Millimeters" />
+    <unit meter="1" name="meter" />
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_cameras>
@@ -169,7 +168,7 @@
   </library_nodes>
   <library_visual_scenes>
     <visual_scene id="VisualSceneNode">
-      <node id="View-Perspective" name="View-Perspective">
+      <node id="meters_root" name="meters_root" type="NODE"><scale>0.001 0.001 0.001</scale><node id="View-Perspective" name="View-Perspective">
         <matrix>-0.592023 0.452997 -0.666560 -106.661873 -0.805921 -0.332768 0.489650 187.294683 0.000000 0.827079 0.562086 138.367153 0.000000 0.000000 0.000000 1.000000</matrix>
         <instance_camera url="#Camera-Perspective" />
       </node>
@@ -189,7 +188,7 @@
         <matrix>0.000000 0.069280 -0.997597 12.250000 0.000000 0.997597 0.069280 -2.520000 1.000000 0.000000 0.000000 8.800000 0.000000 0.000000 0.000000 1.000000</matrix>
         <instance_node url="#instance-def-adbd5dff-4207-4953-861c-efc92805c673" />
       </node>
-    </visual_scene>
+    </node></visual_scene>
   </library_visual_scenes>
   <scene>
     <instance_visual_scene url="#VisualSceneNode" />

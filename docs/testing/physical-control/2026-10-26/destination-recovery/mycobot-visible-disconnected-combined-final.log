@@ -1,0 +1,4 @@
+Disconnected selection: std_srvs.srv.SetBool_Response(success=False, message='Brazo físico no disponible: revisá USB, mediciones, firmware y panel')
+std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+std_srvs.srv.SetBool_Response(success=True, message='Destino: Gazebo')
+COMBINED PASS

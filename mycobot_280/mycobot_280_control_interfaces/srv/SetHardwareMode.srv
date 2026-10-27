@@ -1,0 +1,9 @@
+bool selected
+bool live
+string session_id
+---
+bool success
+string session_id
+string message
+string driver_id
+uint64 status_sequence

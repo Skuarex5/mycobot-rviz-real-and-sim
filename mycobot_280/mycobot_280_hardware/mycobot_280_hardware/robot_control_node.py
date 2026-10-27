@@ -13,6 +13,7 @@ SAFETY RULES:
 
 from dataclasses import dataclass
 import inspect
+import math
 import threading
 import time
 from typing import Callable, List, Optional, Sequence
@@ -27,6 +28,11 @@ from rclpy.node import Node
 from rclpy.parameter import Parameter
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
+
+from mycobot_280_hardware.gripper_conversion import (
+    GripperCalibration, device_value_to_radians, GRIPPER_JOINT,
+)
+from mycobot_280_hardware.gripper_execution import GripperTrajectoryExecutor
 
 from mycobot_280_hardware.joint_conversion import (
     check_signs,
@@ -87,11 +93,19 @@ class ControlledArm:
         device,
         allow_motion: bool = False,
         min_io_interval_s: float = 0.015,
+        gripper_stop_strategy: str = 'torque',
+        gripper_command_mode: str = 'sdk_ack',
     ):
         self._device = device
         self._allow_motion = bool(allow_motion)
         self._min_io_interval_s = max(0.0, float(min_io_interval_s))
         self._lock = threading.RLock()
+        self.configure_gripper_stop(gripper_stop_strategy)
+        if gripper_command_mode not in ('sdk_ack', 'feedback'):
+            raise ValueError('Unknown gripper command mode')
+        self._gripper_command_mode = gripper_command_mode
+        self._gripper_feedback_pending = False
+        self._session_authorizer = None
         self._last_io_mono = 0.0
         self._send_accepts_async = self._check_async_param(
             getattr(device, 'send_angles', None)
@@ -126,6 +140,17 @@ class ControlledArm:
         with self._lock:
             self._pace_io()
             try:
+                # On the tested M5, GET_ANGLES stops replying after a gripper
+                # write until GET_GRIPPER_VALUE is queried. Consume that fresh
+                # feedback under the same USB lock before polling the arm.
+                if self._gripper_feedback_pending:
+                    value = self._device.get_gripper_value(gripper_type=1)
+                    if (isinstance(value, bool) or not isinstance(value, (int, float))
+                            or not math.isfinite(value) or not 0 <= value <= 100):
+                        raise ValueError('Invalid pending gripper feedback')
+                    self._gripper_feedback_pending = False
+                    self._mark_io()
+                    self._pace_io()
                 return self._device.get_angles()
             finally:
                 self._mark_io()
@@ -141,6 +166,8 @@ class ControlledArm:
         with self._lock:
             self._pace_io()
             try:
+                if self._session_authorizer is not None and not self._session_authorizer():
+                    raise PermissionError('Physical session revoked before USB dispatch')
                 # On myCobot 280 M5, SEND_ANGLES has no serial reply frame.
                 # Calling send_angles(..., _async=False) blocks for 3x0.5s=1.5s
                 # waiting for a reply that never arrives. Using _async=True
@@ -152,6 +179,85 @@ class ControlledArm:
                 return self._device.send_angles(target, clamped_speed)
             finally:
                 self._mark_io()
+
+    def set_fresh_mode(self, mode):
+        return self._gripper_call('set_fresh_mode', mode, motion=True)
+
+    def get_fresh_mode(self):
+        return self._gripper_call('get_fresh_mode')
+
+    @property
+    def supports_gripper_stop(self):
+        methods = ('gripper_stop', 'is_gripper_moving')
+        if self._gripper_stop_strategy == 'hold_position':
+            methods = ('get_gripper_value', 'set_gripper_value', 'is_gripper_moving')
+        return all(callable(getattr(self._device, name, None)) for name in methods)
+
+    def configure_gripper_stop(self, strategy):
+        if strategy not in ('torque', 'hold_position'):
+            raise ValueError('Unknown gripper stop strategy')
+        self._gripper_stop_strategy = strategy
+
+    def _gripper_call(self, name, *args, motion=False, **kwargs):
+        if motion and not self._allow_motion:
+            raise PermissionError('Physical gripper motion is disabled')
+        with self._lock:
+            self._pace_io()
+            try:
+                if (motion and name != 'gripper_stop' and self._session_authorizer is not None
+                        and not self._session_authorizer()):
+                    raise PermissionError('Physical session revoked before USB dispatch')
+                if name == 'set_gripper_value':
+                    return self._device_gripper_write(*args)
+                return getattr(self._device, name)(*args, **kwargs)
+            finally:
+                self._mark_io()
+
+    def get_gripper_value(self):
+        return self._gripper_call('get_gripper_value', gripper_type=1)
+
+    def _device_gripper_write(self, value, speed):
+        if self._gripper_command_mode == 'feedback':
+            from pymycobot.common import ProtocolCode
+            from .serial_transport import GripperDispatch
+            result = self._device._mesg(ProtocolCode.SET_GRIPPER_VALUE, value, speed, 1,
+                                        _async=True)
+            if result is not None:
+                raise RuntimeError('Unexpected asynchronous gripper transport response')
+            self._gripper_feedback_pending = True
+            return GripperDispatch.SENT
+        return self._device.set_gripper_value(value, speed, gripper_type=1)
+
+    def set_gripper_value(self, value, speed):
+        if (type(value) is not int or type(speed) is not int
+                or not 0 <= value <= 100 or not 1 <= speed <= 30):
+            raise ValueError('Invalid gripper device command')
+        return self._gripper_call('set_gripper_value', value, speed,
+                                  gripper_type=1, motion=True)
+
+    def gripper_stop(self):
+        if self._gripper_stop_strategy == 'torque':
+            return self._gripper_call('gripper_stop', motion=True)
+        if not self._allow_motion:
+            raise PermissionError('Physical gripper motion is disabled')
+        # A stop must remain possible after session revocation. Serialize the read
+        # and hold target with every other USB operation; never substitute a
+        # model-clamped or cached position. The executor still verifies stopping.
+        with self._lock:
+            value = self.get_gripper_value()
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or not math.isfinite(value) or not 0 <= value <= 100):
+                raise ValueError('A valid measured gripper value is required to hold')
+            self._pace_io()
+            try:
+                # Three-argument position command verified on M5 firmware 7.2 /
+                # basic 2.4. Sending is_torque=0 behaved differently on this unit.
+                return self._device_gripper_write(round(value), 10)
+            finally:
+                self._mark_io()
+
+    def is_gripper_moving(self):
+        return self._gripper_call('is_gripper_moving')
 
     def stop(self):
         if not self._allow_motion:
@@ -208,8 +314,13 @@ def open_controlled_mycobot(
 ) -> ControlledArm:
     """Open the serial connection and wrap it in ``ControlledArm``."""
     from pymycobot import MyCobot280  # lazy import so unit tests run without hardware
+    from .serial_transport import bound_state_read_deadline
     device = MyCobot280(port, baudrate)
-    arm = ControlledArm(device, allow_motion=allow_motion)
+    bound_state_read_deadline(device)
+    # The M5/Atom shares the servo bus with the gripper. Back-to-back queries
+    # after gripper commands dropped replies in physical tests at 15 ms.
+    arm = ControlledArm(device, allow_motion=allow_motion, min_io_interval_s=0.05,
+                        gripper_command_mode='feedback')
     arm.reset_buffers()
     return arm
 
@@ -232,12 +343,36 @@ class RobotController(Node):
         arm_factory: Optional[Callable[[str, int, bool], ControlledArm]] = None,
         sleep_fn: Callable[[float], None] = time.sleep,
         clock_fn: Optional[Callable[[], float]] = None,
+        parameter_overrides=None,
     ):
-        super().__init__('robot_control')
+        super().__init__('robot_control', parameter_overrides=parameter_overrides)
+        self.declare_parameter('adaptive_gripper', False)
+        self.declare_parameter('gripper_stop_confirmed', False)
+        self.declare_parameter('gripper_stop_strategy', 'torque')
+        self._gripper_stop_strategy = str(self.get_parameter('gripper_stop_strategy').value)
+        if self._gripper_stop_strategy not in ('torque', 'hold_position'):
+            raise ValueError('Unknown gripper stop strategy')
+        self.declare_parameter('gripper_speed', 15)
+        self.declare_parameter('gripper_tolerance_rad', 0.03)
+        self.declare_parameter('gripper_timeout_margin_s', 3.0)
+        self.declare_parameter('gripper_closed_rad', -0.74)
+        self.declare_parameter('gripper_open_rad', 0.15)
+        self.declare_parameter('gripper_closed_value', 0.0)
+        self.declare_parameter('gripper_open_value', 100.0)
+        self._adaptive_gripper = bool(self.get_parameter('adaptive_gripper').value)
+        self._gripper_calibration = GripperCalibration(
+            closed_rad=float(self.get_parameter('gripper_closed_rad').value),
+            open_rad=float(self.get_parameter('gripper_open_rad').value),
+            closed_value=float(self.get_parameter('gripper_closed_value').value),
+            open_value=float(self.get_parameter('gripper_open_value').value))
+        self._gripper = None
         self.declare_parameter('port', '/dev/ttyACM0')
         self.declare_parameter('baudrate', 115200)
         self.declare_parameter('update_rate_hz', 10.0)
         self.declare_parameter('allow_motion', False)
+        self.declare_parameter('require_session', False)
+        self.declare_parameter('live_command_period_s', 0.1)
+        self.declare_parameter('physical_state_timeout_s', 0.5)
         self.declare_parameter('action_name', DEFAULT_ACTION_NAME)
         self.declare_parameter('joint_states_topic', 'joint_states')
         self.declare_parameter('joint_names', DEFAULT_JOINT_NAMES)
@@ -308,8 +443,10 @@ class RobotController(Node):
         self._sleep = sleep_fn
         self._clock_fn = clock_fn
         self._state_lock = threading.RLock()
-        self._goal_lock = threading.Lock()
+        self._goal_lock = threading.RLock()
         self._active_goal = False
+        self._motion_fault = False
+        self._hardware_live = None
         self._arm: Optional[ControlledArm] = None
         self._failures = 0
         self._last_connect_attempt: Optional[float] = None
@@ -340,6 +477,18 @@ class RobotController(Node):
             cancel_callback=self._cancel_callback,
             callback_group=self._action_cb_group,
         )
+
+        if self._adaptive_gripper:
+            self._gripper = GripperTrajectoryExecutor(
+                self, self._gripper_calibration,
+                speed=int(self.get_parameter('gripper_speed').value),
+                tolerance=float(self.get_parameter('gripper_tolerance_rad').value),
+                timeout_margin=float(self.get_parameter('gripper_timeout_margin_s').value),
+                stop_confirmed=bool(self.get_parameter('gripper_stop_confirmed').value))
+
+        if self.get_parameter('require_session').value:
+            from .hardware_live import HardwareLiveController
+            self._hardware_live = HardwareLiveController(self)
 
         mode_str = 'MOTION ENABLED' if self._allow_motion else 'READ-ONLY (allow_motion=False)'
         self.get_logger().info(
@@ -383,6 +532,8 @@ class RobotController(Node):
         return self.get_clock().now().nanoseconds * 1e-9
 
     def _close_arm_locked(self) -> None:
+        if self._hardware_live is not None:
+            self._hardware_live.connection_lost()
         if self._arm is not None:
             try:
                 self._arm.close()
@@ -400,7 +551,14 @@ class RobotController(Node):
                 )
                 if not isinstance(arm, ControlledArm):
                     arm = ControlledArm(arm, allow_motion=self._allow_motion)
+                arm.configure_gripper_stop(self._gripper_stop_strategy)
                 self._arm = arm
+                if self.get_parameter('require_session').value:
+                    arm._session_authorizer = lambda: (
+                        self._hardware_live is not None and
+                        self._hardware_live.session.selected and not self._motion_fault and
+                        not self._hardware_live.session.watchdog(
+                            time.monotonic(), self._hardware_live.measured_time))
                 self._failures = 0
                 return True
             except Exception as exc:
@@ -412,6 +570,11 @@ class RobotController(Node):
                 return False
 
     def destroy_node(self):
+        if self._hardware_live is not None:
+            self._hardware_live.shutdown()
+            self._hardware_live.session.revoke()
+        if self._gripper is not None:
+            self._gripper.server.destroy()
         with self._state_lock:
             self._close_arm_locked()
         return super().destroy_node()
@@ -498,8 +661,27 @@ class RobotController(Node):
         msg.header.frame_id = 'g_base'
         msg.name = list(self._names)
         msg.position = list(positions)
+        if self._adaptive_gripper:
+            gripper_position = self.read_gripper_position()
+            if gripper_position is not None:
+                msg.name.append(GRIPPER_JOINT)
+                msg.position.append(gripper_position)
+        if self._hardware_live is not None:
+            with self._state_lock:
+                self._hardware_live.measured_state(msg.position)
         self._pub.publish(msg)
         return positions
+
+    def read_gripper_position(self):
+        with self._state_lock:
+            arm = self._arm
+        if arm is None:
+            return None
+        try:
+            return device_value_to_radians(arm.get_gripper_value(), self._gripper_calibration)
+        except Exception as exc:
+            self.get_logger().warn(f'Invalid gripper measurement: {exc}', throttle_duration_sec=5.0)
+            return None
 
     def _get_fresh_positions(self) -> Optional[List[float]]:
         """Return a fresh measured joint state, polling the arm if needed."""
@@ -521,6 +703,10 @@ class RobotController(Node):
 
     def validate_goal_request(self, goal_request: FollowJointTrajectory.Goal):
         """Run all safety, concurrency, and trajectory validations on a goal."""
+        if self._hardware_live is not None and not self._hardware_live.authorize_trajectory():
+            return False, 'Physical session is inactive, expired or following live.', ERROR_INVALID_GOAL, []
+        if self._motion_fault:
+            return False, 'Motion fault latched: verify the robot is stopped before restarting the controller.', ERROR_INVALID_GOAL, []
         if not self._allow_motion:
             return (
                 False,
@@ -596,6 +782,8 @@ class RobotController(Node):
         Returns True if a stop command was sent and a subsequent angle reading
         succeeded (or ``is_moving()`` reported 0).
         """
+        if self._hardware_live is not None:
+            return self._hardware_live.stop_motion()
         with self._state_lock:
             arm = self._arm
         if arm is None:
@@ -714,6 +902,11 @@ class RobotController(Node):
         )
 
         for idx, wp in enumerate(cmd_waypoints):
+            if self._hardware_live is not None and not self._hardware_live.authorize_trajectory():
+                result.error_code = ERROR_INVALID_GOAL
+                result.error_string = 'Physical session revoked'
+                goal_handle.abort()
+                return result
             is_last = idx == total_cmds - 1
             if goal_handle.is_cancel_requested:
                 self._verified_stop()
@@ -771,6 +964,11 @@ class RobotController(Node):
             )
 
             while True:
+                if self._hardware_live is not None and not self._hardware_live.authorize_trajectory():
+                    result.error_code = ERROR_INVALID_GOAL
+                    result.error_string = 'Physical session revoked'
+                    goal_handle.abort()
+                    return result
                 if goal_handle.is_cancel_requested:
                     self._verified_stop()
                     result.error_code = ERROR_NONE
@@ -814,7 +1012,11 @@ class RobotController(Node):
                     # Break as soon as the arm reaches tolerance so intermediate
                     # via-points transition smoothly without stopping to wait.
                     if max_err <= tol:
-                        break
+                        # A final target inside tolerance can precede actual
+                        # motion on the device. Do not declare completion while
+                        # firmware still reports motion or cannot confirm rest.
+                        if not is_last or arm.is_moving() == 0:
+                            break
 
                 if elapsed > overall_timeout:
                     self.get_logger().error(
@@ -875,16 +1077,22 @@ class RobotController(Node):
         final_err = max(
             abs(d - a) for d, a in zip(final_wp.positions_rad, final_measured)
         )
-        if final_err > self._goal_tol:
+        try:
+            final_moving = arm.is_moving()
+        except Exception:
+            final_moving = None
+        if final_err > self._goal_tol or final_moving != 0:
             self.get_logger().error(
-                f'Final position error {final_err:.3f} rad exceeds '
-                f'goal_tolerance_rad={self._goal_tol:.3f} rad; stopping arm.'
+                f'Final verification failed: error={final_err:.3f} rad, '
+                f'tolerance={self._goal_tol:.3f} rad, moving={final_moving}; stopping arm.'
             )
             self._verified_stop()
             result.error_code = ERROR_GOAL_TOLERANCE_VIOLATED
             result.error_string = (
                 f'Final joint error {final_err:.3f} rad exceeds '
                 f'tolerance {self._goal_tol:.3f} rad.'
+                if final_err > self._goal_tol else
+                'Final robot standstill could not be verified.'
             )
             goal_handle.abort()
             return result
@@ -904,7 +1112,7 @@ class RobotController(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = RobotController()
-    executor = MultiThreadedExecutor(num_threads=2)
+    executor = MultiThreadedExecutor(num_threads=4)
     executor.add_node(node)
     try:
         executor.spin()

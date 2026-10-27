@@ -1,0 +1,40 @@
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+/mycobot_control/select_physical std_srvs.srv.SetBool_Response(success=True, message='Destino: brazo físico')
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento activo')
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+FAIL Live movement did not rise according to measured FK
+/mycobot_live/set_enabled std_srvs.srv.SetBool_Response(success=True, message='Seguimiento desactivado')
+/mycobot_control/select_physical std_srvs.srv.SetBool_Response(success=True, message='Destino: Gazebo')
+{
+  "live_start": [
+    0.4799655442984406,
+    -0.6410594342575172,
+    -0.6503096792930871,
+    -0.4494222823885399,
+    0.19931660057775244,
+    -0.1947787445225672
+  ],
+  "live_goal": [
+    0.4799655921212499,
+    -0.654874501534418,
+    -0.5937336974889906,
+    -0.49218318739448175,
+    0.19931660866847187,
+    -0.19477869643706908
+  ],
+  "live_start_pose": "geometry_msgs.msg.Pose(position=geometry_msgs.msg.Point(x=0.20131334538251625, y=0.06321200132239498, z=0.0992131534259631), orientation=geometry_msgs.msg.Quaternion(x=-0.632505589181861, y=0.4000962574941877, z=-0.21879950397751796, w=0.6260882058081308))",
+  "plan_while_live": {
+    "status": 6,
+    "error": -1
+  },
+  "live_end": [
+    0.48153634062523554,
+    -0.6672393730374321,
+    -0.618021088131192,
+    -0.5077162794051505,
+    0.18395770316020232,
+    -0.18238690683340741
+  ],
+  "live_z_change_m": -0.003975615423679885,
+  "failure": "Live movement did not rise according to measured FK"
+}

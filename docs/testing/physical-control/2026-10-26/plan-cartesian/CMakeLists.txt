@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(mgi_probe)
+find_package(ament_cmake REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
+find_package(rclcpp REQUIRED)
+add_executable(mgi_probe native_plan_probe.cpp)
+ament_target_dependencies(mgi_probe moveit_ros_planning_interface rclcpp)

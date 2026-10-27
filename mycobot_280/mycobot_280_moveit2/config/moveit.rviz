@@ -63,7 +63,7 @@ Visualization Manager:
         Interrupt Display: false
         Links:
           All Links Enabled: true
-        Loop Animation: true
+        Loop Animation: false
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true

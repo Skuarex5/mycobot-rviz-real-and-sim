@@ -2,6 +2,13 @@
 # compare the physical pose against RViz before trusting them.
 robot_monitor:
   ros__parameters:
+    # Same device calibration as robot_control.yaml: closed jaw settled at 12.
+    # Open endpoint 100 remains nominal; device units are not jaw width.
+    adaptive_gripper: false
+    gripper_closed_rad: -0.5
+    gripper_open_rad: 0.15
+    gripper_closed_value: 12.0
+    gripper_open_value: 100.0
     port: /dev/ttyACM0
     baudrate: 115200
     update_rate_hz: 10.0

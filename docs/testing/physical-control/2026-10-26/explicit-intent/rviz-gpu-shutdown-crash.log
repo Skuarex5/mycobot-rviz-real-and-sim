@@ -1,0 +1,218 @@
+SIGINT is used by the debugger.
+Are you sure you want to change it? (y or n) [answered Y; input not from terminal]
+warning: Error disabling address space randomization: Operation not permitted
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7f19c780e640 (LWP 616)]
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+[New Thread 0x7f19c66e5640 (LWP 617)]
+[New Thread 0x7f19c5ee4640 (LWP 618)]
+[New Thread 0x7f19c56e3640 (LWP 619)]
+[New Thread 0x7f19c4e5b640 (LWP 620)]
+[New Thread 0x7f19bffff640 (LWP 621)]
+[New Thread 0x7f19bf7fe640 (LWP 622)]
+[New Thread 0x7f19beffd640 (LWP 623)]
+[New Thread 0x7f19be7fc640 (LWP 624)]
+[New Thread 0x7f19bdffb640 (LWP 625)]
+[New Thread 0x7f19bd7fa640 (LWP 626)]
+[New Thread 0x7f19bcff9640 (LWP 627)]
+[Detaching after fork from child process 628]
+[INFO] [1793036799.264053492] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793036799.264203825] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793036799.347695793] [rviz2]: Stereo is NOT SUPPORTED
+[New Thread 0x7f19a98c7640 (LWP 632)]
+Warning: class_loader.impl: SEVERE WARNING!!! A namespace collision has occurred with plugin factory for class rviz_default_plugins::displays::InteractiveMarkerDisplay. New factory will OVERWRITE existing one. This situation occurs when libraries containing plugins are directly linked against an executable (the one running right now generating this message). Please separate plugins out into their own library or just don't link against the library and use either class_loader::ClassLoader/MultiLibraryClassLoader to open.
+         at line 253 in /opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp
+[New Thread 0x7f1993a24640 (LWP 635)]
+[New Thread 0x7f1993223640 (LWP 636)]
+[ERROR] [1793036803.422340972] [moveit_ros_visualization.motion_planning_frame]: Action server: /recognize_objects not available
+[New Thread 0x7f1992a22640 (LWP 651)]
+[INFO] [1793036803.441028474] [moveit_ros_visualization.motion_planning_frame]: MoveGroup namespace changed: / -> . Reloading params.
+[New Thread 0x7f1992221640 (LWP 652)]
+[INFO] [1793036803.470698458] [interactive_marker_display_94068710634688]: Connected on namespace: /mycobot_live/marker
+[New Thread 0x7f1991a04640 (LWP 653)]
+[INFO] [1793036804.508246336] [interactive_marker_display_94068710634688]: Sending request for interactive markers
+[INFO] [1793036804.508620899] [interactive_marker_display_94068710634688]: Service response received for initialization
+[INFO] [1793036804.520837712] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.0125885 seconds
+[INFO] [1793036804.520916533] [moveit_robot_model.robot_model]: Loading robot model 'mycobot_280_m5'...
+[INFO] [1793036804.520932479] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[New Thread 0x7f197a2a1640 (LWP 661)]
+[New Thread 0x7f196bfff640 (LWP 664)]
+[INFO] [1793036805.399840107] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[INFO] [1793036805.400306790] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/monitored_planning_scene'
+[New Thread 0x7f196b7fe640 (LWP 665)]
+[INFO] [1793036805.408401384] [interactive_marker_display_94068712960912]: Connected on namespace: /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+[INFO] [1793036805.415359046] [moveit_ros_visualization.motion_planning_frame]: group arm_group
+[INFO] [1793036805.415385622] [moveit_ros_visualization.motion_planning_frame]: Constructing new MoveGroup connection for group 'arm_group' in namespace ''
+[New Thread 0x7f196affd640 (LWP 666)]
+[INFO] [1793036805.426221914] [move_group_interface]: Ready to take commands for planning group arm_group.
+[INFO] [1793036805.431418980] [interactive_marker_display_94068712960912]: Sending request for interactive markers
+[INFO] [1793036805.463859824] [interactive_marker_display_94068712960912]: Service response received for initialization
+[INFO] [1793036839.292945429] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[Thread 0x7f196affd640 (LWP 666) exited]
+[Thread 0x7f196bfff640 (LWP 664) exited]
+[Thread 0x7f197a2a1640 (LWP 661) exited]
+[Thread 0x7f1991a04640 (LWP 653) exited]
+[Thread 0x7f1992a22640 (LWP 651) exited]
+[Thread 0x7f1993223640 (LWP 636) exited]
+[Thread 0x7f19a98c7640 (LWP 632) exited]
+[Thread 0x7f1992221640 (LWP 652) exited]
+[WARN] [1793036839.319590567] [interactive_marker_display_94068712960912]: Server not available while running, resetting
+[WARN] [1793036839.320252971] [interactive_marker_display_94068710634688]: Server not available while running, resetting
+[Thread 0x7f19c5ee4640 (LWP 618) exited]
+
+>>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+This error state is being overwritten:
+
+  'rcl node's context is invalid, at ./src/rcl/node.c:428'
+
+with this new error message:
+
+  'publisher's context is invalid, at ./src/rcl/publisher.c:389'
+
+rcutils_reset_error() should be called after error handling to avoid this.
+<<<
+[Thread 0x7f196b7fe640 (LWP 665) exited]
+[INFO] [1793036839.470022577] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[Thread 0x7f1993a24640 (LWP 635) exited]
+
+Thread 1 "rviz2" received signal SIGSEGV, Segmentation fault.
+0x00007f19cd759d51 in rclcpp::CallbackGroup::~CallbackGroup() () from /opt/ros/humble/lib/librclcpp.so
+
+Thread 13 (Thread 0x7f19bcff9640 (LWP 627) "QDBusConnection"):
+#0  0x00007f19cd309d1f in __GI___poll (fds=0x7f19b40029e0, nfds=1, timeout=-1) at ../sysdeps/unix/sysv/linux/poll.c:29
+#1  0x00007f19cbdca596 in ?? () from /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0
+#2  0x00007f19cbd72433 in g_main_context_iteration () from /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0
+#3  0x00007f19cdb8a0b8 in QEventDispatcherGlib::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+#4  0x00007f19cdb2f75b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+#5  0x00007f19cd942af2 in QThread::exec() () from /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+#6  0x00007f19c7c5cf0b in ?? () from /usr/lib/x86_64-linux-gnu/libQt5DBus.so.5
+#7  0x00007f19cd943ca1 in ?? () from /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+#8  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#9  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 12 (Thread 0x7f19bd7fa640 (LWP 626) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7f19b0000c04) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7f19b0000c04) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7f19b0000c04, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd284a01 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7f19b0000bb0, cond=0x7f19b0000bd8) at ./nptl/pthread_cond_wait.c:503
+#4  ___pthread_cond_wait (cond=0x7f19b0000bd8, mutex=0x7f19b0000bb0) at ./nptl/pthread_cond_wait.c:627
+#5  0x00007f19c6b08132 in eprosima::fastdds::dds::detail::WaitSetImpl::wait(std::vector<eprosima::fastdds::dds::Condition*, std::allocator<eprosima::fastdds::dds::Condition*> >&, eprosima::fastrtps::Time_t const&) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#6  0x00007f19c6b081aa in eprosima::fastdds::dds::WaitSet::wait(std::vector<eprosima::fastdds::dds::Condition*, std::allocator<eprosima::fastdds::dds::Condition*> >&, eprosima::fastrtps::Time_t) const () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#7  0x00007f19c6f84a44 in rmw_fastrtps_shared_cpp::__rmw_wait(char const*, rmw_subscriptions_s*, rmw_guard_conditions_s*, rmw_services_s*, rmw_clients_s*, rmw_events_s*, rmw_wait_set_s*, rmw_time_s const*) () from /opt/ros/humble/lib/librmw_fastrtps_shared_cpp.so
+#8  0x00007f19c6f70502 in ?? () from /opt/ros/humble/lib/librmw_fastrtps_shared_cpp.so
+#9  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#10 0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#11 0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 11 (Thread 0x7f19bdffb640 (LWP 625) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x558e130b123c) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x558e130b123c) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x558e130b123c, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd284a01 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x558e130b12a8, cond=0x558e130b1210) at ./nptl/pthread_cond_wait.c:503
+#4  ___pthread_cond_wait (cond=0x558e130b1210, mutex=0x558e130b12a8) at ./nptl/pthread_cond_wait.c:627
+#5  0x00007f19c6b5fe45 in eprosima::fastdds::rtps::FlowControllerImpl<eprosima::fastdds::rtps::FlowControllerSyncPublishMode, eprosima::fastdds::rtps::FlowControllerFifoSchedule>::run() () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#6  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#7  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#8  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 10 (Thread 0x7f19be7fc640 (LWP 624) "rviz2"):
+#0  0x00007f19cd318814 in __libc_recvfrom (fd=16, buf=0x558e130e1cf0, len=65500, flags=0, addr=..., addrlen=0x7f19be7fae68) at ../sysdeps/unix/sysv/linux/recvfrom.c:27
+#1  0x00007f19c6a40040 in eprosima::fastdds::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#2  0x00007f19c6a40406 in eprosima::fastdds::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#3  0x00007f19c6a3b13b in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#4  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#6  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 9 (Thread 0x7f19beffd640 (LWP 623) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=<optimized out>, cancel=true, abstime=0x7f19beffbbc0, op=265, expected=0, futex_word=0x7f19c4653110) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=<optimized out>, abstime=0x7f19beffbbc0, clockid=0, expected=0, futex_word=0x7f19c4653110) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7f19c4653110, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x7f19beffbbc0, private=<optimized out>) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd28d970 in do_futex_wait (sem=sem@entry=0x7f19c4653110, abstime=abstime@entry=0x7f19beffbbc0, clockid=0) at ./nptl/sem_waitcommon.c:111
+#4  0x00007f19cd28da13 in __new_sem_wait_slow64 (sem=0x7f19c4653110, abstime=0x7f19beffbbc0, clockid=0) at ./nptl/sem_waitcommon.c:183
+#5  0x00007f19c6bfa2fa in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#6  0x00007f19c6bfab6c in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#7  0x00007f19c6bf8347 in eprosima::fastdds::rtps::SharedMemChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#8  0x00007f19c6bfb98b in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#9  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#10 0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#11 0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 8 (Thread 0x7f19bf7fe640 (LWP 622) "rviz2"):
+#0  0x00007f19cd318814 in __libc_recvfrom (fd=14, buf=0x558e130d1d00, len=65500, flags=0, addr=..., addrlen=0x7f19bf7fce68) at ../sysdeps/unix/sysv/linux/recvfrom.c:27
+#1  0x00007f19c6a40040 in eprosima::fastdds::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#2  0x00007f19c6a40406 in eprosima::fastdds::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#3  0x00007f19c6a3b13b in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#4  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#6  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 7 (Thread 0x7f19bffff640 (LWP 621) "rviz2"):
+#0  0x00007f19cd318814 in __libc_recvfrom (fd=13, buf=0x558e130c1d10, len=65500, flags=0, addr=..., addrlen=0x7f19bfffde68) at ../sysdeps/unix/sysv/linux/recvfrom.c:27
+#1  0x00007f19c6a40040 in eprosima::fastdds::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#2  0x00007f19c6a40406 in eprosima::fastdds::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#3  0x00007f19c6a3b13b in ?? () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#4  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#6  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 6 (Thread 0x7f19c4e5b640 (LWP 620) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=319488816, cancel=true, abstime=0x7f19c4e5a2a0, op=137, expected=0, futex_word=0x558e130a14bc) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=319488816, abstime=0x7f19c4e5a2a0, clockid=0, expected=0, futex_word=0x558e130a14bc) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x558e130a14bc, expected=expected@entry=0, clockid=clockid@entry=1, abstime=abstime@entry=0x7f19c4e5a2a0, private=private@entry=0) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd28529d in __pthread_cond_wait_common (abstime=0x7f19c4e5a2a0, clockid=1, mutex=0x558e13044e70, cond=0x558e130a1490) at ./nptl/pthread_cond_wait.c:503
+#4  ___pthread_cond_clockwait64 (abstime=0x7f19c4e5a2a0, clockid=1, mutex=0x558e13044e70, cond=0x558e130a1490) at ./nptl/pthread_cond_wait.c:691
+#5  ___pthread_cond_clockwait64 (cond=0x558e130a1490, mutex=0x558e13044e70, clockid=1, abstime=0x7f19c4e5a2a0) at ./nptl/pthread_cond_wait.c:679
+#6  0x00007f19c6952f61 in eprosima::fastrtps::rtps::ResourceEvent::event_service() () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#7  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#8  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#9  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 5 (Thread 0x7f19c56e3640 (LWP 619) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=-982638048, cancel=true, abstime=0x7f19c56e22a0, op=137, expected=0, futex_word=0x558e130b7ef0) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=-982638048, abstime=0x7f19c56e22a0, clockid=0, expected=0, futex_word=0x558e130b7ef0) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x558e130b7ef0, expected=expected@entry=0, clockid=clockid@entry=1, abstime=abstime@entry=0x7f19c56e22a0, private=private@entry=0) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd28529d in __pthread_cond_wait_common (abstime=0x7f19c56e22a0, clockid=1, mutex=0x558e130b7ef8, cond=0x558e130b7ec8) at ./nptl/pthread_cond_wait.c:503
+#4  ___pthread_cond_clockwait64 (abstime=0x7f19c56e22a0, clockid=1, mutex=0x558e130b7ef8, cond=0x558e130b7ec8) at ./nptl/pthread_cond_wait.c:691
+#5  ___pthread_cond_clockwait64 (cond=0x558e130b7ec8, mutex=0x558e130b7ef8, clockid=1, abstime=0x7f19c56e22a0) at ./nptl/pthread_cond_wait.c:679
+#6  0x00007f19c6bed701 in eprosima::fastdds::rtps::SharedMemWatchdog::run() () from /opt/ros/humble/lib/libfastrtps.so.2.6
+#7  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#8  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#9  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 3 (Thread 0x7f19c66e5640 (LWP 617) "rviz2"):
+#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x7f19c66e42a0, op=137, expected=0, futex_word=0x558e130ba720) at ./nptl/futex-internal.c:57
+#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x7f19c66e42a0, clockid=0, expected=0, futex_word=0x558e130ba720) at ./nptl/futex-internal.c:87
+#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x558e130ba720, expected=expected@entry=0, clockid=clockid@entry=1, abstime=abstime@entry=0x7f19c66e42a0, private=private@entry=0) at ./nptl/futex-internal.c:139
+#3  0x00007f19cd28529d in __pthread_cond_wait_common (abstime=0x7f19c66e42a0, clockid=1, mutex=0x558e130ba6d0, cond=0x558e130ba6f8) at ./nptl/pthread_cond_wait.c:503
+#4  ___pthread_cond_clockwait64 (abstime=0x7f19c66e42a0, clockid=1, mutex=0x558e130ba6d0, cond=0x558e130ba6f8) at ./nptl/pthread_cond_wait.c:691
+#5  ___pthread_cond_clockwait64 (cond=0x558e130ba6f8, mutex=0x558e130ba6d0, clockid=1, abstime=0x7f19c66e42a0) at ./nptl/pthread_cond_wait.c:679
+#6  0x00007f19c875e839 in ?? () from /usr/lib/x86_64-linux-gnu/libspdlog.so.1
+#7  0x00007f19cd516253 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#8  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#9  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 2 (Thread 0x7f19c780e640 (LWP 616) "QXcbEventQueue"):
+#0  0x00007f19cd309d1f in __GI___poll (fds=0x7f19c780d188, nfds=1, timeout=-1) at ../sysdeps/unix/sysv/linux/poll.c:29
+#1  0x00007f19c90667e2 in ?? () from /usr/lib/x86_64-linux-gnu/libxcb.so.1
+#2  0x00007f19c906822c in xcb_wait_for_event () from /usr/lib/x86_64-linux-gnu/libxcb.so.1
+#3  0x00007f19c7d94d08 in ?? () from /usr/lib/x86_64-linux-gnu/libQt5XcbQpa.so.5
+#4  0x00007f19cd943ca1 in ?? () from /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+#5  0x00007f19cd285a83 in start_thread (arg=<optimized out>) at ./nptl/pthread_create.c:442
+#6  0x00007f19cd316a94 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
+
+Thread 1 (Thread 0x7f19c7f20280 (LWP 612) "rviz2"):
+#0  0x00007f19cd759d51 in rclcpp::CallbackGroup::~CallbackGroup() () from /opt/ros/humble/lib/librclcpp.so
+#1  0x00007f19cd754e1a in ?? () from /opt/ros/humble/lib/librclcpp.so
+#2  0x00007f19cd783e41 in rclcpp::node_interfaces::NodeBase::~NodeBase() () from /opt/ros/humble/lib/librclcpp.so
+#3  0x00007f19cd783efa in ?? () from /opt/ros/humble/lib/librclcpp.so
+#4  0x00007f19cd754e1a in ?? () from /opt/ros/humble/lib/librclcpp.so
+#5  0x00007f19cd77a8ff in rclcpp::Node::~Node() () from /opt/ros/humble/lib/librclcpp.so
+#6  0x00007f19ce5b4e12 in ?? () from /opt/ros/humble/lib/librviz_common.so
+#7  0x00007f19ce5b4d72 in ?? () from /opt/ros/humble/lib/librviz_common.so
+#8  0x00007f19ce5f191a in rviz_common::VisualizerApp::~VisualizerApp() () from /opt/ros/humble/lib/librviz_common.so
+#9  0x0000558e110158fb in ?? ()
+#10 0x00007f19cd21ad90 in __libc_start_call_main (main=main@entry=0x558e11015430, argc=argc@entry=18, argv=argv@entry=0x7fffaa609748) at ../sysdeps/nptl/libc_start_call_main.h:58
+#11 0x00007f19cd21ae40 in __libc_start_main_impl (main=0x558e11015430, argc=18, argv=0x7fffaa609748, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffaa609738) at ../csu/libc-start.c:392
+#12 0x0000558e11015c15 in ?? ()

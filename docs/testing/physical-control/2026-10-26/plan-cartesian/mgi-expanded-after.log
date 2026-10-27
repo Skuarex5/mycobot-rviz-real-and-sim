@@ -1,0 +1,69 @@
+[INFO] [1793040373.908737338] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.00331319 seconds
+[INFO] [1793040373.908802697] [moveit_robot_model.robot_model]: Loading robot model 'mycobot_280_m5'...
+[INFO] [1793040373.908811235] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[INFO] [1793040374.270837759] [move_group_interface]: Ready to take commands for planning group arm_group.
+[INFO] [1793040374.270884647] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793040374.274568379] [move_group_interface]: Planning request accepted
+[INFO] [1793040374.276593979] [move_group_interface]: Planning request aborted
+[ERROR] [1793040374.277498557] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793040374.290629239] [move_group_interface]: Plan and Execute request accepted
+[INFO] [1793040374.292179090] [move_group_interface]: Plan and Execute request aborted
+[ERROR] [1793040374.292452300] [move_group_interface]: MoveGroupInterface::move() failed or timeout reached
+Blocked Plan & Execute returned error=-1
+[INFO] [1793040374.293423694] [move_group_interface]: Execute request accepted
+[INFO] [1793040374.294791899] [move_group_interface]: Execute request aborted
+[ERROR] [1793040374.295821404] [move_group_interface]: MoveGroupInterface::execute() failed or timeout reached
+Invalid Execute returned error=-1
+[INFO] [1793040374.295867795] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793040374.298800603] [move_group_interface]: Planning request accepted
+[INFO] [1793040374.301463958] [move_group_interface]: Planning request aborted
+[ERROR] [1793040374.302313345] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793040374.304739724] [move_group_interface]: Plan and Execute request accepted
+[INFO] [1793040374.306268536] [move_group_interface]: Plan and Execute request aborted
+[ERROR] [1793040374.306669179] [move_group_interface]: MoveGroupInterface::move() failed or timeout reached
+Blocked Plan & Execute returned error=-1
+[INFO] [1793040374.307629307] [move_group_interface]: Execute request accepted
+[INFO] [1793040374.308976524] [move_group_interface]: Execute request aborted
+[ERROR] [1793040374.309923655] [move_group_interface]: MoveGroupInterface::execute() failed or timeout reached
+Invalid Execute returned error=-1
+[INFO] [1793040374.309958265] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793040374.313233560] [move_group_interface]: Planning request accepted
+[INFO] [1793040374.315583614] [move_group_interface]: Planning request aborted
+[ERROR] [1793040374.316375829] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793040374.319411930] [move_group_interface]: Plan and Execute request accepted
+[INFO] [1793040374.320939440] [move_group_interface]: Plan and Execute request aborted
+[ERROR] [1793040374.321769525] [move_group_interface]: MoveGroupInterface::move() failed or timeout reached
+Blocked Plan & Execute returned error=-1
+[INFO] [1793040374.322487834] [move_group_interface]: Execute request accepted
+[INFO] [1793040374.324146212] [move_group_interface]: Execute request aborted
+[ERROR] [1793040374.325073988] [move_group_interface]: MoveGroupInterface::execute() failed or timeout reached
+Invalid Execute returned error=-1
+[INFO] [1793040374.325125860] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793040374.327470661] [move_group_interface]: Planning request accepted
+[INFO] [1793040374.329281145] [move_group_interface]: Planning request aborted
+[ERROR] [1793040374.329434943] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793040374.332518377] [move_group_interface]: Plan and Execute request accepted
+[INFO] [1793040374.334831481] [move_group_interface]: Plan and Execute request aborted
+[ERROR] [1793040374.334893366] [move_group_interface]: MoveGroupInterface::move() failed or timeout reached
+Blocked Plan & Execute returned error=-1
+[INFO] [1793040374.335655536] [move_group_interface]: Execute request accepted
+[INFO] [1793040374.336959836] [move_group_interface]: Execute request aborted
+[ERROR] [1793040374.337112908] [move_group_interface]: MoveGroupInterface::execute() failed or timeout reached
+Invalid Execute returned error=-1
+[INFO] [1793040374.337153205] [move_group_interface]: MoveGroup action client/server ready
+[INFO] [1793040374.339801113] [move_group_interface]: Planning request accepted
+[INFO] [1793040374.341308420] [move_group_interface]: Planning request aborted
+[ERROR] [1793040374.341449037] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+Rejected plan returned error=-1
+[INFO] [1793040374.344210856] [move_group_interface]: Plan and Execute request accepted
+[INFO] [1793040374.346481221] [move_group_interface]: Plan and Execute request aborted
+[ERROR] [1793040374.346835306] [move_group_interface]: MoveGroupInterface::move() failed or timeout reached
+Blocked Plan & Execute returned error=-1
+[INFO] [1793040374.347738158] [move_group_interface]: Execute request accepted
+[INFO] [1793040374.349122067] [move_group_interface]: Execute request aborted
+[ERROR] [1793040374.350104445] [move_group_interface]: MoveGroupInterface::execute() failed or timeout reached
+Invalid Execute returned error=-1

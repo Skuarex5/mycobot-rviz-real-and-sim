@@ -1,0 +1,14 @@
+# Explicit USB opt-in. Physical motion remains disabled until the operator
+# supplies allow_motion:=true and, with the gripper, gripper_stop_confirmed:=true.
+services:
+  mycobot:
+    devices:
+      - ${MYCOBOT_PORT:-/dev/ttyACM0}:/dev/ttyACM0
+    command:
+      - ros2
+      - launch
+      - mycobot_280_hardware
+      - control.launch.py
+      - adaptive_gripper:=true
+      - port:=/dev/ttyACM0
+      - allow_motion:=false

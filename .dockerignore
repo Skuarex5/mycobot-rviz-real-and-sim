@@ -1,0 +1,14 @@
+**/.git
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/*.egg-info
+**/build
+**/install
+**/log
+.superpowers
+.worktrees
+docs
+.env
+*.xauth

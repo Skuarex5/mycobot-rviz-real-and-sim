@@ -3,9 +3,26 @@
 # only after verifying workspace clearance and E-stop reachability.
 robot_control:
   ros__parameters:
+    # This device: closed jaw settled at 12 after stop (2026-10-23).
+    # Open endpoint 100 remains nominal; device units are not jaw width.
+    adaptive_gripper: false
+    gripper_closed_rad: -0.5
+    gripper_open_rad: 0.15
+    gripper_closed_value: 12.0
+    gripper_open_value: 100.0
+    # Verified on this device: stop by holding the measured position. SDK torque
+    # stop did not settle within the controller's one-second stop deadline.
+    gripper_stop_strategy: hold_position
+    gripper_stop_confirmed: false
+    gripper_speed: 15
+    gripper_tolerance_rad: 0.03
+    gripper_timeout_margin_s: 3.0
     port: /dev/ttyACM0
     baudrate: 115200
-    update_rate_hz: 10.0
+    update_rate_hz: 5.0
+    live_command_period_s: 0.2
+    # Measured sensor retry + polling/dispatch cycle can exceed 0.5 s.
+    physical_state_timeout_s: 0.8
     allow_motion: false
     action_name: mycobot280m5_group_controller/follow_joint_trajectory
     joint_states_topic: joint_states
@@ -27,9 +44,11 @@ robot_control:
     default_pymycobot_speed: 15
     min_pymycobot_speed: 5
     max_pymycobot_speed: 30
-    start_state_tolerance_rad: 0.15
-    goal_tolerance_rad: 0.08
-    waypoint_tolerance_rad: 0.10
+    start_state_tolerance_rad: 0.05
+    # Bidirectional empty-arm probes settled up to ~0.033 rad from targets.
+    # Completion additionally requires firmware to report standstill.
+    goal_tolerance_rad: 0.04
+    waypoint_tolerance_rad: 0.02
     goal_time_tolerance_s: 2.0
     trajectory_timeout_scaling: 2.0
     min_segment_wait_s: 0.08
